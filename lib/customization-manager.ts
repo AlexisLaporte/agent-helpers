@@ -552,7 +552,7 @@ export async function writeSettings(settings: Settings, isLocal = false): Promis
 /**
  * Calculate MD5 hash of content for comparison
  */
-function calculateHash(content: string): string {
+export function calculateHash(content: string): string {
   return createHash('md5').update(content).digest('hex');
 }
 

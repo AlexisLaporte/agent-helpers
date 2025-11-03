@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import PushToLibraryButton from '@/components/PushToLibraryButton';
@@ -20,7 +20,9 @@ interface CustomizationData {
 export default function BrowseViewerPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const name = params.name as string;
+  const project = searchParams.get('project');
 
   const [data, setData] = useState<CustomizationData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,14 +34,19 @@ export default function BrowseViewerPage() {
 
   useEffect(() => {
     loadCustomization();
-  }, [name]);
+  }, [name, project]);
 
   const loadCustomization = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`/api/customization/local/${encodeURIComponent(name)}`);
+      const url = new URL(`/api/customization/local/${encodeURIComponent(name)}`, window.location.origin);
+      if (project) {
+        url.searchParams.set('project', project);
+      }
+
+      const response = await fetch(url.toString());
       if (!response.ok) {
         throw new Error('Customization not found locally');
       }
@@ -139,6 +146,11 @@ export default function BrowseViewerPage() {
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {data.name}
               </h1>
+              {project && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                  From project: <span className="font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded">{project}</span>
+                </p>
+              )}
               {data.description && (
                 <p className="text-gray-600 dark:text-gray-300">{data.description}</p>
               )}

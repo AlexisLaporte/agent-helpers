@@ -128,3 +128,41 @@ export interface ClaudeProject {
   };
 }
 
+// Duplicates analysis
+export interface CustomizationWithProject extends BaseCustomization {
+  projectName: string;
+  projectPath: string;
+  claudePath: string;
+  contentHash: string;
+}
+
+export interface ContentGroup {
+  hash: string;
+  instances: CustomizationWithProject[];
+}
+
+export interface DuplicatesByName {
+  name: string;
+  type: CustomizationType;
+  instances: CustomizationWithProject[];
+  contentGroups: ContentGroup[];
+}
+
+export interface DuplicatesByContent {
+  hash: string;
+  type: CustomizationType;
+  instances: CustomizationWithProject[];
+  uniqueNames: string[];
+}
+
+export interface DuplicatesAnalysis {
+  byName: DuplicatesByName[];
+  byContent: DuplicatesByContent[];
+  stats: {
+    totalProjects: number;
+    totalFiles: number;
+    duplicateNames: number;
+    duplicateContent: number;
+  };
+}
+

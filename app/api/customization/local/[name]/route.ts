@@ -14,6 +14,8 @@ export async function GET(
 ) {
   try {
     const { name } = await params;
+    const { searchParams } = new URL(request.url);
+    const project = searchParams.get('project');
 
     // Try each type in order
     const types: CustomizationType[] = ['skill', 'command', 'agent', 'output-style'];
@@ -23,16 +25,16 @@ export async function GET(
 
       switch (type) {
         case 'skill':
-          customization = await getSkill(name, true);
+          customization = await getSkill(name, true, project || undefined);
           break;
         case 'command':
-          customization = await getCommand(name, true);
+          customization = await getCommand(name, true, project || undefined);
           break;
         case 'agent':
-          customization = await getAgent(name, true);
+          customization = await getAgent(name, true, project || undefined);
           break;
         case 'output-style':
-          customization = await getOutputStyle(name, true);
+          customization = await getOutputStyle(name, true, project || undefined);
           break;
       }
 

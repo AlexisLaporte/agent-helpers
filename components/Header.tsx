@@ -25,6 +25,12 @@ export default function Header() {
               Templates
             </Link>
             <Link
+              href="/duplicates"
+              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              Duplicates
+            </Link>
+            <Link
               href="/projects"
               className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >

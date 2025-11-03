@@ -37,6 +37,7 @@ library-personal/
 *.key
 *.p12
 vercel-personal.sh
+start.sh
 LOCAL-SETUP.md
 
 # IDE

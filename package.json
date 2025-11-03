@@ -22,6 +22,7 @@
   "build": {
     "appId": "com.agenthelpers.app",
     "productName": "Agent Helpers",
+    "publish": null,
     "directories": {
       "output": "dist"
     },

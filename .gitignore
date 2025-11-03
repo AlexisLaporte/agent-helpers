@@ -25,3 +25,39 @@ output-styles/**/personal/
 *.swp
 *.swo
 *~
+
+# Environment variables and secrets
+.env
+.env.local
+.env*.local
+*.pem
+*.key
+*.p12
+vercel-personal.sh
+LOCAL-SETUP.md
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+Thumbs.db
+
+# Config (local overrides)
+config.local.json
+
+# Temporary files
+*.tmp
+deploy_hook.json
+webhook.json
+
+# Build output
+dist/
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Electron
+*.dmg
+*.deb
+*.AppImage

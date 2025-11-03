@@ -1,6 +1,0 @@
-# Only deploy the app directory
-skills/
-commands/
-agents/
-output-styles/
-!app/

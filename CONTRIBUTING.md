@@ -136,25 +136,207 @@ Contributions can be made at three levels:
 5. **Start development server**
    ```bash
    npm run dev
-   # Visit http://localhost:3001
+   # Visit http://localhost:3011
    ```
 
 ### Project Structure
 
 ```
-agent-helpers/
-├── app/                    # Next.js web application
-│   ├── app/               # App Router pages
-│   ├── components/        # React components
-│   ├── lib/              # Core libraries
-│   └── package.json
-├── skills/               # Skills library
-├── commands/             # Commands library
-├── agents/               # Agents library
-├── output-styles/        # Output styles library
+agent-helpers/             # Next.js web application
+├── app/                   # Next.js App Router pages
+├── components/            # React components
+├── lib/                   # Core libraries
+├── library/               # Customizations library
+│   ├── skills/           # Skills library
+│   ├── commands/         # Commands library
+│   ├── agents/           # Agents library
+│   └── output-styles/    # Output styles library
+├── scripts/               # Build and dev scripts
 ├── .github/              # GitHub configuration
+├── package.json
 └── README.md
 ```
+
+## Multi-Account Management
+
+This repository supports working with multiple GitHub and Vercel accounts without changing your global configuration. This is useful when you have both personal and organization accounts.
+
+### Current Configuration
+
+- **GitHub Repository**: `AlexisLaporte/agent-helpers` (personal)
+- **Vercel Deployment**: Team `tulsme` (personal account `alexislaporte`)
+- **Fork**: `321founded/agent-helpers` (organization fork)
+
+### GitHub CLI (gh) Account Management
+
+**Important**: Your global `gh` CLI might be configured for a different account (e.g., organization account) that does NOT have access to this personal repository.
+
+Unlike git credentials, `gh` CLI manages permissions per account. If your active account doesn't have access to this repo, you have two options.
+
+#### Check Your Access
+
+```bash
+# Check which account is active
+gh auth status
+
+# Try to access the repo
+gh repo view AlexisLaporte/agent-helpers
+```
+
+If you get a permission error, your active account doesn't have access.
+
+#### Option 1: Temporary Account Switch (Interactive Work)
+
+Switch to the account that owns this repo:
+
+```bash
+# Switch to personal account
+gh auth switch --user AlexisLaporte
+
+# Now work normally
+gh pr create
+gh issue list
+gh pr merge 123
+
+# When done, switch back to your default account
+gh auth switch --user YourDefaultAccount
+```
+
+**Note**: This changes the active account globally until you switch back. All terminal sessions will use the switched account.
+
+#### Option 2: GitHub API with Personal Token (Automation/Scripts)
+
+Use the GitHub REST API directly with a personal access token:
+
+```bash
+# Create a token at: https://github.com/settings/tokens
+# Grant 'repo' scope for full repository access
+
+# Example: Create a pull request via API
+curl -X POST \
+  -H "Authorization: token YOUR_GITHUB_PAT" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/AlexisLaporte/agent-helpers/pulls \
+  -d '{
+    "title": "Your PR Title",
+    "head": "feature-branch",
+    "base": "master",
+    "body": "PR description"
+  }'
+```
+
+This approach is ideal for automation scripts and CI/CD where you don't want to switch accounts.
+
+#### Option 3: Add Collaborator Access (If You Want Unified Access)
+
+If you prefer to use your organization account for this repo too:
+
+1. Add your organization account as a collaborator on the personal repo
+2. Accept the invitation
+3. Then use `--repo` flag: `gh pr create --repo AlexisLaporte/agent-helpers`
+
+**Only do this if you want both accounts to have access.** Skip if you prefer to keep accounts separated.
+
+### Vercel CLI Account Management
+
+**Important**: Unlike GitHub CLI, Vercel CLI only supports one logged-in account at a time. Since this project deploys to the personal account (`alexislaporte` on team `tulsme`) but your global Vercel might be logged into the 321 account, you have two options:
+
+#### Option 1: Use Vercel Token (Recommended)
+Create a personal Vercel token and use it for this project:
+
+```bash
+# Create token at: https://vercel.com/account/tokens
+# Then use it for this project:
+cd app
+vercel --token=YOUR_PERSONAL_TOKEN deploy
+
+# Or set as environment variable
+export VERCEL_TOKEN=YOUR_PERSONAL_TOKEN
+vercel deploy
+```
+
+**Benefits**: No need to switch accounts, works alongside 321 account.
+
+#### Option 2: Temporarily Switch Accounts
+```bash
+# Logout from current account
+vercel logout
+
+# Login with personal account
+vercel login alexis.laporte@gmail.com
+
+# Link and deploy
+cd app
+vercel link
+vercel deploy
+
+# When done, switch back to 321 account
+vercel logout
+vercel login  # Use 321 email
+```
+
+**Note**: This affects all Vercel projects temporarily.
+
+#### Option 3: Use Different Vercel Config Directory
+```bash
+# Use a separate config directory for this project
+cd app
+vercel --global-config=/path/to/personal/.vercel deploy
+```
+
+**Current Status**: The project is currently linked to the 321 team. It needs to be re-linked to the personal `tulsme` team using one of the methods above.
+
+### Local Git Configuration
+
+This repository uses local git configuration to ensure commits use the correct identity:
+
+```bash
+# View current local config
+git config --local user.name
+git config --local user.email
+
+# Set if needed
+git config --local user.name "Your Name"
+git config --local user.email "your.email@example.com"
+```
+
+Local configuration overrides global configuration only for this repository.
+
+### Repository Remotes
+
+```bash
+# View configured remotes
+git remote -v
+
+# Expected output:
+# origin    https://github.com/AlexisLaporte/agent-helpers.git
+# fork321   https://github.com/321founded/agent-helpers.git
+```
+
+### Auto-Sync to Organization Fork
+
+Changes pushed to the `master` branch of this repository automatically sync to the organization fork (`321founded/agent-helpers`) via GitHub Actions (`.github/workflows/sync-to-321-fork.yml`).
+
+**How it works:**
+1. When you push to master, the workflow triggers
+2. It checks out the 321 fork
+3. Merges changes from personal repo (upstream)
+4. Pushes merged result to 321 fork
+
+**Setup Requirements:**
+The workflow requires a GitHub secret called `FORK_SYNC_TOKEN`:
+1. Create a Personal Access Token (PAT) at https://github.com/settings/tokens
+2. Grant `repo` scope (full control of private repositories)
+3. Add as repository secret: Settings → Secrets → Actions → New repository secret
+4. Name: `FORK_SYNC_TOKEN`
+5. Value: Your PAT
+
+**Organization-Specific Files:**
+The fork maintains organization-specific files through separate commits:
+- `README.321.md`
+- `library/skills/321-example-skill/`
+
+These files exist in the fork's history and are preserved during merges.
 
 ## Contribution Workflow
 
@@ -197,7 +379,7 @@ agent-helpers/
 
 2. **Add organization-prefixed customization**
    ```bash
-   mkdir -p skills/321-deployment-helper
+   mkdir -p library/skills/321-deployment-helper
    # Add your files
    ```
 
@@ -214,7 +396,7 @@ agent-helpers/
 
 Structure:
 ```
-skills/
+library/skills/
 └── skill-name/
     ├── SKILL.md          # Required: Documentation with frontmatter
     ├── script-name       # Optional: Executable scripts
@@ -247,7 +429,7 @@ Any prerequisites or dependencies...
 
 ### Commands
 
-File: `commands/command-name.md`
+File: `library/commands/command-name.md`
 
 Format:
 ```markdown
@@ -264,7 +446,7 @@ Use $ARGUMENTS or $1, $2 for parameters.
 
 ### Agents
 
-File: `agents/agent-name.md`
+File: `library/agents/agent-name.md`
 
 Format:
 ```markdown
@@ -280,7 +462,7 @@ System prompt describing the agent's role, behavior, and instructions.
 
 ### Output Styles
 
-File: `output-styles/style-name.md`
+File: `library/output-styles/style-name.md`
 
 Format:
 ```markdown

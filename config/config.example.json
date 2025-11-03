@@ -1,7 +1,0 @@
-{
-  "localSkillsPath": "~/.claude/skills",
-  "gitRepoUrl": "https://github.com/you/agent-helpers",
-  "archivedSkills": [],
-  "autoSync": false,
-  "theme": "dark"
-}

@@ -1,13 +1,73 @@
 {
   "name": "agent-helpers",
   "version": "0.1.0",
-  "description": "Browse and manage Claude Code skills",
-  "scripts": {
-    "dev": "cd app && npm run dev",
-    "build": "cd app && npm run build",
-    "start": "./start.sh"
+  "description": "Agent Helpers - Manage Claude Code customizations",
+  "author": {
+    "name": "Agent Helpers",
+    "email": "contact@agent-helpers.local"
   },
-  "keywords": ["claude-code", "skills", "ai", "assistant"],
-  "author": "Alexis",
-  "license": "MIT"
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build:next": "next build && node scripts/post-build.js",
+    "build": "npm run build:next && electron-builder",
+    "build:linux": "npm run build:next && electron-builder --linux deb",
+    "build:mac": "npm run build:next && electron-builder --mac dmg",
+    "build:all": "npm run build:next && electron-builder --linux deb --mac dmg",
+    "start": "node scripts/start.js",
+    "electron": "electron .",
+    "lint": "eslint"
+  },
+  "build": {
+    "appId": "com.agenthelpers.app",
+    "productName": "Agent Helpers",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      ".next/standalone/**/*",
+      ".next/static/**/*",
+      "electron/**/*",
+      "public/**/*",
+      "library/**/*",
+      "package.json",
+      "!node_modules/@img/sharp-darwin-*/**",
+      "!node_modules/@img/sharp-win32-*/**"
+    ],
+    "asar": false,
+    "linux": {
+      "target": ["deb"],
+      "category": "Development",
+      "icon": "public/icon.png"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "category": "public.app-category.developer-tools",
+      "icon": "public/icon.png"
+    }
+  },
+  "dependencies": {
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "next": "15.5.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.6",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
 }

@@ -2,10 +2,10 @@
 set -e
 
 # Script d'installation rapide pour équipe
-# Usage: curl -fsSL https://raw.githubusercontent.com/YOUR-ORG/agent-helpers/main/scripts/install-latest.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/main/scripts/install-latest.sh | bash
 # Ou: ./scripts/install-latest.sh
 
-REPO="YOUR-ORG/agent-helpers"
+REPO="AlexisLaporte/agent-helpers"
 INSTALL_DIR="/tmp/agent-helpers-install"
 
 echo "🚀 Installing Agent Helpers (latest version)"

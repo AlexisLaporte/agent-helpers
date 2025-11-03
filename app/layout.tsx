@@ -18,22 +18,6 @@ export const metadata: Metadata = {
     template: "%s | Agent Helpers",
   },
   description: "Browse, manage, and sync Claude Code customizations including skills, commands, agents, and output styles.",
-  keywords: ["Claude Code", "AI", "customizations", "skills", "commands", "agents", "productivity"],
-  authors: [{ name: "Alexis Laporte", url: "https://github.com/AlexisLaporte" }],
-  creator: "Alexis Laporte",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://agent-helpers.vercel.app",
-    title: "Agent Helpers - Claude Code Customizations",
-    description: "Browse, manage, and sync Claude Code customizations including skills, commands, agents, and output styles.",
-    siteName: "Agent Helpers",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Agent Helpers - Claude Code Customizations",
-    description: "Browse, manage, and sync Claude Code customizations including skills, commands, agents, and output styles.",
-  },
 };
 
 export default function RootLayout({

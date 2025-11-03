@@ -162,23 +162,18 @@ agent-helpers/
 └── README.md
 ```
 
-## Branch Strategy
+## Development Workflow
 
-This project uses a dual architecture:
-
-- **`master` branch**: Desktop Electron app (current focus)
-- **`web` branch**: Web library for browsing templates (coming soon)
-
-When contributing, specify which branch your PR targets:
+This project focuses on the desktop Electron app. All contributions should target the `master` branch:
 
 ```bash
-# For desktop app features
-git checkout -b feature/my-desktop-feature master
-# Submit PR to master branch
+# Create a feature branch from master
+git checkout -b feature/my-new-feature master
 
-# For web library features
-git checkout -b feature/my-web-feature web
-# Submit PR to web branch
+# Make your changes, commit, and push
+git push origin feature/my-new-feature
+
+# Submit PR to master branch
 ```
 
 ## Contribution Workflow

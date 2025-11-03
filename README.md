@@ -1,32 +1,21 @@
 # Agent Helpers
 
-**Desktop app for managing Claude Code customizations** + **Web library for discovery**
+## What is Agent Helpers?
 
-## Architecture
+**Desktop app for managing Claude Code customizations**
 
-Agent Helpers uses a **dual architecture**:
-
-### 🖥️ Desktop App (this branch: `master`)
-Electron application for managing your local `~/.claude/` customizations:
-- Visual file manager for skills, commands, agents, output-styles
-- Editor for CLAUDE.md, settings, hooks
-- Project switcher for multi-project workflows
-- Bundled starter templates
+Agent Helpers is an Electron application that provides a visual interface for managing your local `~/.claude/` directory:
+- 📂 Browse and edit skills, commands, agents, output-styles
+- 📝 Edit CLAUDE.md, settings, hooks
+- 🔄 Project switcher for multi-project workflows
+- 📦 Bundled starter templates
 
 **Distribution**: `.deb` (Linux) and `.dmg` (macOS) packages via [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases)
 
-### 🌐 Web Library (branch: `web`)
-Next.js website for discovering and browsing templates:
-- Preview all available templates
-- Documentation and getting started guides
-- Links to desktop app downloads
-- Read-only, no filesystem access
+### Template Library
 
-**Live site**: Coming soon
-
-### 📚 Template Library
-Curated collection of reusable customizations:
-- `library/` - Public starter templates (bundled in desktop app)
+The app includes curated starter templates:
+- `library/` - Public templates (bundled in the app)
 - `library-personal/` - Your private templates (gitignored)
 
 ## Fonctionnalités
@@ -123,10 +112,10 @@ npm run build:all
 
 ## User Workflow
 
-1. **Discover**: Browse templates at [agent-helpers web] (coming soon)
-2. **Install**: Download `.deb`/`.dmg` from [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases)
-3. **Manage**: Launch desktop app to edit your `~/.claude/` customizations
-4. **Sync**: Install bundled templates or create your own
+1. **Install**: Download `.deb`/`.dmg` from [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases)
+2. **Launch**: Open the desktop app
+3. **Manage**: Browse and edit your `~/.claude/` customizations
+4. **Templates**: Install bundled templates or create your own
 
 ## Releases (for maintainers)
 
@@ -243,8 +232,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 Focus areas:
 - New starter templates for `library/`
 - Desktop app UX/UI improvements
-- Web library features (branch: `web`)
 - Documentation improvements
+- Bug fixes and performance enhancements
 
 ## License
 

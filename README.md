@@ -1,6 +1,33 @@
 # Agent Helpers
 
-Application desktop Electron pour gérer vos customizations Claude Code locales.
+**Desktop app for managing Claude Code customizations** + **Web library for discovery**
+
+## Architecture
+
+Agent Helpers uses a **dual architecture**:
+
+### 🖥️ Desktop App (this branch: `master`)
+Electron application for managing your local `~/.claude/` customizations:
+- Visual file manager for skills, commands, agents, output-styles
+- Editor for CLAUDE.md, settings, hooks
+- Project switcher for multi-project workflows
+- Bundled starter templates
+
+**Distribution**: `.deb` (Linux) and `.dmg` (macOS) packages via [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases)
+
+### 🌐 Web Library (branch: `web`)
+Next.js website for discovering and browsing templates:
+- Preview all available templates
+- Documentation and getting started guides
+- Links to desktop app downloads
+- Read-only, no filesystem access
+
+**Live site**: Coming soon
+
+### 📚 Template Library
+Curated collection of reusable customizations:
+- `library/` - Public starter templates (bundled in desktop app)
+- `library-personal/` - Your private templates (gitignored)
 
 ## Fonctionnalités
 
@@ -14,14 +41,14 @@ Application desktop Electron pour gérer vos customizations Claude Code locales.
 
 **📦 Guide complet: [INSTALL.md](INSTALL.md)**
 
-### Installation rapide (équipe)
+### Quick Install
 
 ```bash
-# Installer dernière version depuis GitHub Releases
-curl -fsSL https://raw.githubusercontent.com/YOUR-ORG/agent-helpers/main/scripts/install-latest.sh | bash
+# Download latest from GitHub Releases
+curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/main/scripts/install-latest.sh | bash
 ```
 
-### Build depuis sources
+### Build from source
 
 ```bash
 # Build
@@ -94,9 +121,16 @@ npm run build:all
 - Linux: `dist/agent-helpers_0.1.0_amd64.deb`
 - macOS: `dist/agent-helpers-0.1.0.dmg`
 
-## Releases (pour mainteneurs)
+## User Workflow
 
-### Créer une release
+1. **Discover**: Browse templates at [agent-helpers web] (coming soon)
+2. **Install**: Download `.deb`/`.dmg` from [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases)
+3. **Manage**: Launch desktop app to edit your `~/.claude/` customizations
+4. **Sync**: Install bundled templates or create your own
+
+## Releases (for maintainers)
+
+### Create a release
 
 ```bash
 # Linux only
@@ -109,33 +143,33 @@ npm run build:all
 ./scripts/release.sh 0.2.0 all
 ```
 
-Le script:
-1. Update `package.json` version
-2. Commit + tag `v0.2.0`
-3. Build les packages
-4. Push to remote
+The script:
+1. Updates `package.json` version
+2. Commits + tags `v0.2.0`
+3. Builds packages
+4. Pushes to remote
 
-Ensuite:
-1. Aller sur [GitHub Releases](https://github.com/YOUR-ORG/agent-helpers/releases/new)
-2. Créer release pour tag `v0.2.0`
-3. Uploader les packages:
+Then:
+1. Go to [GitHub Releases](https://github.com/AlexisLaporte/agent-helpers/releases/new)
+2. Create release for tag `v0.2.0`
+3. Upload packages:
    - `agent-helpers_0.2.0_amd64.deb` (Linux)
    - `agent-helpers-0.2.0.dmg` (macOS)
-4. Notifier l'équipe
+4. Announce the release
 
-### Équipe: Installer/mettre à jour
+### Users: Install/update
 
 **Linux:**
 ```bash
-wget https://github.com/YOUR-ORG/agent-helpers/releases/download/v0.2.0/agent-helpers_0.2.0_amd64.deb
+wget https://github.com/AlexisLaporte/agent-helpers/releases/download/v0.2.0/agent-helpers_0.2.0_amd64.deb
 sudo dpkg -i agent-helpers_0.2.0_amd64.deb
 ```
 
 **macOS:**
 ```bash
-curl -L -O https://github.com/YOUR-ORG/agent-helpers/releases/download/v0.2.0/agent-helpers-0.2.0.dmg
+curl -L -O https://github.com/AlexisLaporte/agent-helpers/releases/download/v0.2.0/agent-helpers-0.2.0.dmg
 open agent-helpers-0.2.0.dmg
-# Glisser dans Applications
+# Drag to Applications
 ```
 
 ## Configuration
@@ -158,7 +192,7 @@ Config file: `~/.config/agent-helpers/config.json`
 }
 ```
 
-Configure via Settings page dans l'app.
+Configure via Settings page in the app.
 
 ## Roadmap
 
@@ -202,12 +236,15 @@ npm run build:linux  # Build + package .deb
 npm run electron     # Lance Electron en dev
 ```
 
-## Contribuer
+## Contributing
 
-Forkez le repo et créez une PR. Focus sur:
-- Amélioration éditeur
-- Templates customizations
-- UX/UI enhancements
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+Focus areas:
+- New starter templates for `library/`
+- Desktop app UX/UI improvements
+- Web library features (branch: `web`)
+- Documentation improvements
 
 ## License
 

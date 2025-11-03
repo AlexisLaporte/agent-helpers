@@ -19,6 +19,9 @@ commands/**/personal/
 agents/**/personal/
 output-styles/**/personal/
 
+# Personal library (user-specific templates)
+library-personal/
+
 # Local development
 *.log
 .DS_Store

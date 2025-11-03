@@ -1,15 +1,28 @@
 #!/bin/bash
 set -e
 
-# Script d'installation rapide pour équipe
-# Usage: curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/main/scripts/install-latest.sh | bash
-# Ou: ./scripts/install-latest.sh
+# Agent Helpers installer
+# Usage: curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/master/scripts/install-latest.sh | bash
 
 REPO="AlexisLaporte/agent-helpers"
 INSTALL_DIR="/tmp/agent-helpers-install"
 
-echo "🚀 Installing Agent Helpers (latest version)"
+echo "🚀 Installing Agent Helpers"
 echo ""
+
+# Detect OS
+OS="$(uname -s)"
+case "$OS" in
+  Linux*)   PLATFORM="linux" ;;
+  Darwin*)  PLATFORM="macos" ;;
+  *)
+    echo "❌ Unsupported OS: $OS"
+    echo "Please install manually from: https://github.com/$REPO/releases"
+    exit 1
+    ;;
+esac
+
+echo "🖥️  Platform: $PLATFORM"
 
 # Detect latest version from GitHub
 echo "📡 Fetching latest version..."
@@ -21,38 +34,67 @@ if [ -z "$LATEST_VERSION" ]; then
   exit 1
 fi
 
-echo "✅ Latest version: $LATEST_VERSION"
-
-# Download
-DEB_FILE="agent-helpers_${LATEST_VERSION}_amd64.deb"
-DOWNLOAD_URL="https://github.com/$REPO/releases/download/v$LATEST_VERSION/$DEB_FILE"
+echo "✅ Latest version: v$LATEST_VERSION"
+echo ""
 
 mkdir -p "$INSTALL_DIR"
 cd "$INSTALL_DIR"
 
-echo "⬇️  Downloading $DEB_FILE..."
-curl -fsSL -o "$DEB_FILE" "$DOWNLOAD_URL"
+# Download and install based on platform
+if [ "$PLATFORM" = "linux" ]; then
+  FILE="agent-helpers_${LATEST_VERSION}_amd64.deb"
+  DOWNLOAD_URL="https://github.com/$REPO/releases/download/v$LATEST_VERSION/$FILE"
 
-if [ ! -f "$DEB_FILE" ]; then
-  echo "❌ Download failed"
-  exit 1
+  echo "⬇️  Downloading $FILE..."
+  curl -fsSL -o "$FILE" "$DOWNLOAD_URL"
+
+  if [ ! -f "$FILE" ]; then
+    echo "❌ Download failed"
+    exit 1
+  fi
+
+  FILE_SIZE=$(ls -lh "$FILE" | awk '{print $5}')
+  echo "✅ Downloaded: $FILE ($FILE_SIZE)"
+  echo ""
+
+  echo "📦 Installing (requires sudo)..."
+  sudo dpkg -i "$FILE"
+
+  echo ""
+  echo "✅ Installation complete!"
+  echo ""
+  echo "Launch with:"
+  echo "  agent-helpers"
+  echo ""
+
+elif [ "$PLATFORM" = "macos" ]; then
+  FILE="agent-helpers-${LATEST_VERSION}.dmg"
+  DOWNLOAD_URL="https://github.com/$REPO/releases/download/v$LATEST_VERSION/$FILE"
+
+  echo "⬇️  Downloading $FILE..."
+  curl -fsSL -o "$FILE" "$DOWNLOAD_URL"
+
+  if [ ! -f "$FILE" ]; then
+    echo "❌ Download failed"
+    exit 1
+  fi
+
+  FILE_SIZE=$(ls -lh "$FILE" | awk '{print $5}')
+  echo "✅ Downloaded: $FILE ($FILE_SIZE)"
+  echo ""
+
+  echo "📦 Opening installer..."
+  open "$FILE"
+
+  echo ""
+  echo "✅ Installer opened!"
+  echo ""
+  echo "Please:"
+  echo "  1. Drag 'Agent Helpers' to Applications folder"
+  echo "  2. Open from Applications"
+  echo ""
 fi
-
-DEB_SIZE=$(ls -lh "$DEB_FILE" | awk '{print $5}')
-echo "✅ Downloaded: $DEB_FILE ($DEB_SIZE)"
-
-# Install
-echo "📦 Installing..."
-sudo dpkg -i "$DEB_FILE"
 
 # Cleanup
 cd - > /dev/null
 rm -rf "$INSTALL_DIR"
-
-echo ""
-echo "✅ Installation complete!"
-echo ""
-echo "Launch with:"
-echo "  agent-helpers"
-echo ""
-echo "Or from: Applications → Development → Agent Helpers"

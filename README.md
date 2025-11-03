@@ -30,12 +30,18 @@ The app includes curated starter templates:
 
 **📦 Guide complet: [INSTALL.md](INSTALL.md)**
 
-### Quick Install
+### Quick Install (Linux & macOS)
 
 ```bash
-# Download latest from GitHub Releases
-curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/main/scripts/install-latest.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/agent-helpers/master/scripts/install-latest.sh | bash
 ```
+
+This will automatically:
+- Detect your OS (Linux/macOS)
+- Download the latest release
+- Install the app
+  - Linux: via `dpkg` (requires sudo)
+  - macOS: opens the .dmg installer
 
 ### Build from source
 

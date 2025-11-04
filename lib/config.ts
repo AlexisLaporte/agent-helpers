@@ -1,5 +1,7 @@
 import { homedir } from 'os';
 import path from 'path';
+import { promises as fs } from 'fs';
+import { LibrarySource } from './types';
 
 /**
  * Get the base path to the user's .claude directory
@@ -47,4 +49,129 @@ export function getLocalOutputStylesPath(customBasePath?: string): string {
  */
 export function getLocalHooksPath(customBasePath?: string): string {
   return path.join(getClaudeBasePath(customBasePath), 'hooks');
+}
+
+/**
+ * Configuration file structure
+ */
+export interface AppConfig {
+  librarySources: LibrarySource[];
+  lastSync?: string;
+  theme?: 'light' | 'dark' | 'system';
+  autoSync?: boolean;
+}
+
+const CONFIG_DIR = path.join(homedir(), '.config', 'agent-helpers');
+const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
+
+/**
+ * Get default configuration
+ */
+export function getDefaultConfig(): AppConfig {
+  return {
+    librarySources: [
+      {
+        id: 'bundled',
+        name: 'Official Templates',
+        type: 'bundled',
+        enabled: true,
+      },
+    ],
+    theme: 'system',
+    autoSync: false,
+  };
+}
+
+/**
+ * Load configuration from disk
+ */
+export async function loadConfig(): Promise<AppConfig> {
+  try {
+    const exists = await fs.access(CONFIG_FILE).then(() => true).catch(() => false);
+
+    if (!exists) {
+      return getDefaultConfig();
+    }
+
+    const content = await fs.readFile(CONFIG_FILE, 'utf-8');
+    const config = JSON.parse(content);
+
+    // Merge with defaults to ensure all fields exist
+    return {
+      ...getDefaultConfig(),
+      ...config,
+    };
+  } catch (error) {
+    console.error('Error loading config:', error);
+    return getDefaultConfig();
+  }
+}
+
+/**
+ * Save configuration to disk
+ */
+export async function saveConfig(config: AppConfig): Promise<void> {
+  try {
+    await fs.mkdir(CONFIG_DIR, { recursive: true });
+    await fs.writeFile(CONFIG_FILE, JSON.stringify(config, null, 2), 'utf-8');
+  } catch (error) {
+    console.error('Error saving config:', error);
+    throw error;
+  }
+}
+
+/**
+ * Add a library source to configuration
+ */
+export async function addLibrarySource(source: LibrarySource): Promise<void> {
+  const config = await loadConfig();
+
+  // Check if source with same ID already exists
+  const existingIndex = config.librarySources.findIndex(s => s.id === source.id);
+
+  if (existingIndex >= 0) {
+    // Update existing
+    config.librarySources[existingIndex] = source;
+  } else {
+    // Add new
+    config.librarySources.push(source);
+  }
+
+  await saveConfig(config);
+}
+
+/**
+ * Remove a library source from configuration
+ */
+export async function removeLibrarySource(sourceId: string): Promise<void> {
+  const config = await loadConfig();
+  config.librarySources = config.librarySources.filter(s => s.id !== sourceId);
+  await saveConfig(config);
+}
+
+/**
+ * Update a library source in configuration
+ */
+export async function updateLibrarySource(sourceId: string, updates: Partial<LibrarySource>): Promise<void> {
+  const config = await loadConfig();
+  const sourceIndex = config.librarySources.findIndex(s => s.id === sourceId);
+
+  if (sourceIndex < 0) {
+    throw new Error(`Library source not found: ${sourceId}`);
+  }
+
+  config.librarySources[sourceIndex] = {
+    ...config.librarySources[sourceIndex],
+    ...updates,
+  };
+
+  await saveConfig(config);
+}
+
+/**
+ * Get all enabled library sources
+ */
+export async function getEnabledSources(): Promise<LibrarySource[]> {
+  const config = await loadConfig();
+  return config.librarySources.filter(s => s.enabled);
 }

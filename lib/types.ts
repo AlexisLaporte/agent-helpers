@@ -166,3 +166,49 @@ export interface DuplicatesAnalysis {
   };
 }
 
+// Library sources
+export type LibrarySourceType = 'bundled' | 'git' | 'gist' | 'local';
+
+export interface LibrarySource {
+  id: string;
+  name: string;
+  type: LibrarySourceType;
+  url?: string;          // For git/gist
+  path?: string;         // For local
+  branch?: string;       // For git (default: main/master)
+  token?: string;        // For private git repos
+  enabled: boolean;
+  lastSync?: string;     // ISO date
+  stats?: {
+    skills: number;
+    commands: number;
+    agents: number;
+    outputStyles: number;
+  };
+}
+
+export interface LibraryManifest {
+  name: string;
+  version: string;
+  description?: string;
+  author?: string;
+  repository?: string;
+  homepage?: string;
+  license?: string;
+  compatibility?: {
+    agentHelpers?: string;
+  };
+  contents?: {
+    skills?: string[];
+    commands?: string[];
+    agents?: string[];
+    outputStyles?: string[];
+  };
+}
+
+export interface CustomizationWithSource extends BaseCustomization {
+  sourceId: string;
+  sourceName: string;
+  sourceType: LibrarySourceType;
+}
+

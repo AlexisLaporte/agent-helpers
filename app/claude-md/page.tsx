@@ -74,15 +74,15 @@ function ClaudeMdEditor() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="p-8 flex items-center justify-center">
         <p className="text-gray-600 dark:text-gray-400">Loading CLAUDE.md...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="p-8">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -99,12 +99,6 @@ function ClaudeMdEditor() {
                 </p>
               )}
             </div>
-            <Link
-              href={projectPath ? `/browse?project=${projectPath}` : '/browse'}
-              className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              ← Back
-            </Link>
           </div>
 
           {/* Info */}
@@ -175,7 +169,7 @@ function ClaudeMdEditor() {
 export default function ClaudeMdPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="p-8 flex items-center justify-center">
         <p className="text-gray-600 dark:text-gray-400">Loading...</p>
       </div>
     }>

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { ClaudeProject } from '@/lib/types';
-import PageLayout from '../../components/PageLayout';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<ClaudeProject[]>([]);
@@ -37,32 +36,32 @@ export default function ProjectsPage() {
 
   if (loading) {
     return (
-      <PageLayout className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8">
-        <div className="max-w-6xl mx-auto">
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
           <p className="text-gray-600 dark:text-gray-300">Loading projects...</p>
         </div>
-      </PageLayout>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <PageLayout className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8">
-        <div className="max-w-6xl mx-auto">
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
           <p className="text-red-600 dark:text-red-400">Error: {error}</p>
         </div>
-      </PageLayout>
+      </div>
     );
   }
 
   return (
-    <PageLayout className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="p-8">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Discovered Projects
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-gray-600 dark:text-gray-300">
             .claude directories found on this machine
           </p>
         </div>
@@ -169,6 +168,6 @@ export default function ProjectsPage() {
           </div>
         )}
       </div>
-    </PageLayout>
+    </div>
   );
 }

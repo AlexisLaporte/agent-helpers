@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import PageLayout from '@/components/PageLayout';
 import { getTypeConfig } from '@/lib/customization-config';
 import MarkdownContent from '@/components/MarkdownContent';
 import FrontmatterDisplay from '@/components/FrontmatterDisplay';
@@ -274,18 +273,18 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
 
   if (loading) {
     return (
-      <PageLayout className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="p-8">
+        <div className="max-w-4xl mx-auto">
           <p className="text-gray-600 dark:text-gray-300">Loading...</p>
         </div>
-      </PageLayout>
+      </div>
     );
   }
 
   if (error && !content) {
     return (
-      <PageLayout className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="p-8">
+        <div className="max-w-4xl mx-auto">
           <Link
             href="/browse"
             className="text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block"
@@ -296,7 +295,7 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
             <p className="text-red-800 dark:text-red-200">Error: {error}</p>
           </div>
         </div>
-      </PageLayout>
+      </div>
     );
   }
 
@@ -305,8 +304,8 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
   }
 
   return (
-    <PageLayout className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="p-8">
+      <div className="max-w-4xl mx-auto">
         <Link
           href="/browse"
           className="text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block"
@@ -317,10 +316,10 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
         <header className="mb-8">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {metadata?.name || fileName}
               </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
+              <p className="text-gray-600 dark:text-gray-300">
                 {metadata?.description || `File: .claude/${filePath.join('/')}`}
               </p>
             </div>
@@ -508,6 +507,6 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
           )}
         </div>
       </div>
-    </PageLayout>
+    </div>
   );
 }

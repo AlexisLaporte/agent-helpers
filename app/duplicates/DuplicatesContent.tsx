@@ -41,8 +41,8 @@ export default function DuplicatesContent() {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center">
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-600 dark:text-gray-300">
             Analyzing duplicates across all projects...
           </p>
@@ -53,8 +53,8 @@ export default function DuplicatesContent() {
 
   if (error || !analysis) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center text-red-600 dark:text-red-400">
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto text-center text-red-600 dark:text-red-400">
           <p>Error: {error || 'Failed to load duplicates'}</p>
         </div>
       </div>
@@ -62,43 +62,35 @@ export default function DuplicatesContent() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <header className="mb-8">
-        <div className="flex justify-between items-start mb-6">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-              Duplicate Analysis
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Find duplicate customizations across all your Claude Code projects
-            </p>
-            {project && (
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Viewing:
-                </span>
-                <span className="text-sm font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
-                  {project.replace(/\//g, ' › ')}
-                </span>
-                <Link
-                  href="/duplicates"
-                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  (clear)
-                </Link>
-              </div>
-            )}
-          </div>
-          <Link
-            href="/browse"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            View All Customizations
-          </Link>
-        </div>
+    <div className="p-8">
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            Duplicate Analysis
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Find duplicate customizations across all your Claude Code projects
+          </p>
+          {project && (
+            <div className="mt-3 flex items-center gap-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Viewing:
+              </span>
+              <span className="text-sm font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
+                {project.replace(/\//g, ' › ')}
+              </span>
+              <Link
+                href="/duplicates"
+                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                (clear)
+              </Link>
+            </div>
+          )}
+        </header>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
             <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {analysis.stats.totalProjects}
@@ -128,7 +120,7 @@ export default function DuplicatesContent() {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
           <nav className="-mb-px flex space-x-8">
             <button
               onClick={() => setActiveTab('byName')}
@@ -152,10 +144,9 @@ export default function DuplicatesContent() {
             </button>
           </nav>
         </div>
-      </header>
 
-      {/* Content */}
-      <div className="space-y-4">
+        {/* Content */}
+        <div className="space-y-4">
         {activeTab === 'byName' ? (
           analysis.byName.length === 0 ? (
             <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -194,6 +185,7 @@ export default function DuplicatesContent() {
             />
           ))
         )}
+        </div>
       </div>
     </div>
   );

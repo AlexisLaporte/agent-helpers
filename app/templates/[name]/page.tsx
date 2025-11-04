@@ -2,7 +2,6 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import PageLayout from '../../../components/PageLayout';
 import InstallButton from '../../../components/InstallButton';
 
 interface TemplateDetailProps {
@@ -90,8 +89,8 @@ export default async function TemplateDetailPage({ params, searchParams }: Templ
   const label = typeLabels[type] || type;
 
   return (
-    <PageLayout className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="p-8">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -140,11 +139,11 @@ export default async function TemplateDetailPage({ params, searchParams }: Templ
         {/* Help */}
         <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
           <p className="text-sm text-blue-800 dark:text-blue-200">
-            💡 Click <strong>"Install to ~/.claude/"</strong> to copy this template to your local customizations directory.
-            You can then edit it from the "Your Customizations" page.
+            Click <strong>"Install to ~/.claude/"</strong> to copy this template to your local customizations directory.
+            You can then edit it from the Browse page.
           </p>
         </div>
       </div>
-    </PageLayout>
+    </div>
   );
 }

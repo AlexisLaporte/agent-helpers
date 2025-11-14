@@ -1,6 +1,6 @@
 {
   "name": "@agent-helpers/library",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Curated skills and templates for Claude Code",
   "private": true,
   "keywords": ["claude-code", "skills", "templates", "ai"],

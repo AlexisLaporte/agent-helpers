@@ -1,2 +1,0 @@
-- Github : ne pas utiliser la CLI mais l'API, avec le token de AlexisLaporte (personnel, pas le compte AlexisLaporte321)
-- Vercel : ne pas utiliser la CLI (associée au compte pro de Alexis)

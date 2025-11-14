@@ -69,3 +69,5 @@ next-env.d.ts
 dev/dev.log
 dev/
 .vercel
+
+CLAUDE.md

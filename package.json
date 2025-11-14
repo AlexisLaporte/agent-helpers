@@ -7,68 +7,25 @@
     "email": "contact@agent-helpers.local"
   },
   "private": true,
-  "main": "electron/main.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "node scripts/dev.js",
-    "build:next": "next build && node scripts/post-build.js",
-    "build": "npm run build:next && electron-builder",
-    "build:linux": "npm run build:next && electron-builder --linux deb",
-    "build:mac": "npm run build:next && electron-builder --mac dmg",
-    "build:all": "npm run build:next && electron-builder --linux deb --mac dmg",
-    "start": "node scripts/start.js",
-    "electron": "electron .",
-    "lint": "eslint"
-  },
-  "build": {
-    "appId": "com.agenthelpers.app",
-    "productName": "Agent Helpers",
-    "publish": null,
-    "directories": {
-      "output": "dist"
-    },
-    "files": [
-      ".next/standalone/**/*",
-      ".next/static/**/*",
-      "electron/**/*",
-      "public/**/*",
-      "library/**/*",
-      "package.json",
-      "!node_modules/@img/sharp-darwin-*/**",
-      "!node_modules/@img/sharp-win32-*/**"
-    ],
-    "asar": false,
-    "linux": {
-      "target": ["deb"],
-      "category": "Development",
-      "icon": "public/icon.png"
-    },
-    "mac": {
-      "target": ["dmg"],
-      "category": "public.app-category.developer-tools",
-      "icon": "public/icon.png"
-    }
-  },
-  "dependencies": {
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "next": "15.5.6",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-markdown": "^10.1.0",
-    "react-syntax-highlighter": "^15.6.6",
-    "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "dev": "npm run dev -w @agent-helpers/web",
+    "dev:web": "npm run dev -w @agent-helpers/web",
+    "dev:electron": "npm run dev -w @agent-helpers/electron",
+    "build": "turbo run build",
+    "build:web": "npm run build -w @agent-helpers/web",
+    "build:electron": "npm run build -w @agent-helpers/electron",
+    "build:linux": "npm run build:linux -w @agent-helpers/electron",
+    "build:mac": "npm run build:mac -w @agent-helpers/electron",
+    "lint": "turbo run lint",
+    "start": "npm run start -w @agent-helpers/web"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "electron": "^39.0.0",
-    "electron-builder": "^26.0.12",
     "eslint": "^9",
-    "eslint-config-next": "15.5.6",
-    "tailwindcss": "^4",
+    "turbo": "^2.4.0",
     "typescript": "^5"
   }
 }

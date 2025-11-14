@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "commonjs",
+    "paths": {
+      "@agent-helpers/shared": ["../shared"],
+      "@agent-helpers/library": ["../library"],
+      "@agent-helpers/web": ["../web"]
+    }
+  },
+  "include": ["**/*.js"],
+  "exclude": ["node_modules"]
+}

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['@agent-helpers/ui', '@agent-helpers/core'],
   output: 'standalone',
   distDir: '.next',
   images: {

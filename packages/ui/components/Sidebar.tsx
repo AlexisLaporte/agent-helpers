@@ -75,11 +75,11 @@ export default function Sidebar() {
     <div className="w-64 surface flex flex-col h-screen sticky top-0" style={{ borderRight: '1px solid var(--border)' }}>
       {/* Header */}
       <div className="p-6" style={{ borderBottom: '1px solid var(--border)' }}>
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex flex-col items-center gap-3 group">
           <svg
             viewBox="0 0 100 100"
-            width="40"
-            height="40"
+            width="48"
+            height="48"
             className="flex-shrink-0"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -94,7 +94,7 @@ export default function Sidebar() {
             <circle cx="50" cy="50" r="30" fill="url(#sidebarGrad)" opacity="0.6" />
             <circle cx="50" cy="50" r="8" fill="white" opacity="0.9" />
           </svg>
-          <div className="flex-1 min-w-0">
+          <div className="text-center">
             <h1 className="text-lg font-semibold tracking-tight" style={{ color: 'var(--foreground)' }}>
               Agent Helpers
             </h1>

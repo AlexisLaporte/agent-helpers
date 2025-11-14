@@ -22,13 +22,13 @@ jobs:
         run: npm install
 
       - name: Build Linux package
-        run: npm run build:linux
+        run: npm run package:linux
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux-package
-          path: dist/*.deb
+          path: apps/desktop/dist/*.deb
 
   build-macos:
     runs-on: macos-latest
@@ -46,13 +46,13 @@ jobs:
         run: npm install
 
       - name: Build macOS package
-        run: npm run build:mac
+        run: npm run package:mac
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-package
-          path: dist/*.dmg
+          path: apps/desktop/dist/*.dmg
 
   create-release:
     needs: [build-linux, build-macos]

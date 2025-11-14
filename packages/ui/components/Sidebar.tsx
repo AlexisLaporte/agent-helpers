@@ -69,7 +69,9 @@ export default function Sidebar() {
         <Link href="/" className="flex items-center gap-3 group">
           <svg
             viewBox="0 0 40 40"
-            className="w-10 h-10 flex-shrink-0"
+            width="40"
+            height="40"
+            className="flex-shrink-0"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>

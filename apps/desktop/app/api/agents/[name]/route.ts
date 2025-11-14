@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAgent } from '@/lib/customization-manager';
+import { getAgent } from '@agent-helpers/core/customization-manager';
 import { getLocalAgentsPath } from '@agent-helpers/core/config';
 import path from 'path';
 

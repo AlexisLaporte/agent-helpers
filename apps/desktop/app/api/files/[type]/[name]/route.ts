@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { getTypeConfig } from '@/lib/customization-config';
+import { getTypeConfig } from '@agent-helpers/core/customization-config';
 import { getClaudeBasePath } from '@agent-helpers/core/config';
 
 /**

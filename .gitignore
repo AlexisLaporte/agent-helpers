@@ -58,6 +58,7 @@ webhook.json
 
 # Build output
 dist/
+apps/*/dist/
 tsconfig.tsbuildinfo
 next-env.d.ts
 

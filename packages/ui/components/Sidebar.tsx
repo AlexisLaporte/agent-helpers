@@ -72,7 +72,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-64 surface flex flex-col h-screen sticky top-0" style={{ borderRight: '1px solid var(--border)' }}>
+    <div className="w-72 surface flex flex-col h-screen sticky top-0" style={{ borderRight: '1px solid var(--border)' }}>
       {/* Header */}
       <div className="p-6" style={{ borderBottom: '1px solid var(--border)' }}>
         <Link href="/" className="flex flex-col items-center gap-3 group">

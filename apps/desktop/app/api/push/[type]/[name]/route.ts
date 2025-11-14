@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { compareWithLibrary } from '@/lib/customization-manager';
+import { compareWithLibrary } from '@agent-helpers/core/customization-manager';
 import { getLocalPath, getLibraryPath } from '@agent-helpers/core/config';
 import path from 'path';
 import { promises as fs } from 'fs';

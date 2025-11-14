@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { compareWithLibrary } from '@/lib/customization-manager';
+import { compareWithLibrary } from '@agent-helpers/core/customization-manager';
 import type { CustomizationType } from '@agent-helpers/core/types';
 
 /**

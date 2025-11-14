@@ -3,7 +3,7 @@ import {
   getCommand,
   getAgent,
   getOutputStyle,
-} from '@/lib/customization-manager';
+} from '@agent-helpers/core/customization-manager';
 
 export async function GET(
   request: Request,

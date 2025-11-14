@@ -5,7 +5,7 @@ import {
   getAgent,
   getOutputStyle,
   checkLocalExists,
-} from '@/lib/customization-manager';
+} from '@agent-helpers/core/customization-manager';
 import { CustomizationType } from '@agent-helpers/core/types';
 
 export async function GET(

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSkill } from '@/lib/skills-manager';
+import { getSkill } from '@agent-helpers/core/skills-manager';
 import { getLocalSkillsPath } from '@agent-helpers/core/config';
 import path from 'path';
 

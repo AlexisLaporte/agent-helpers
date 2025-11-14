@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { listLocalOutputStyles } from '@/lib/customization-manager';
+import { listLocalOutputStyles } from '@agent-helpers/core/customization-manager';
 
 export async function GET(request: NextRequest) {
   try {

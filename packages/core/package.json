@@ -3,12 +3,15 @@
   "version": "0.1.2",
   "description": "Core types, config and utilities for Agent Helpers",
   "private": true,
-  "main": "./config.ts",
-  "types": "./types.ts",
   "exports": {
     "./types": "./types.ts",
     "./config": "./config.ts",
     "./customization-config": "./customization-config.ts",
-    "./library-parser": "./library-parser.ts"
+    "./library-parser": "./library-parser.ts",
+    "./customization-manager": "./customization-manager.ts",
+    "./library-sources": "./library-sources.ts",
+    "./skills-manager": "./skills-manager.ts",
+    "./project-discovery": "./project-discovery.ts",
+    "./environment": "./environment.ts"
   }
 }

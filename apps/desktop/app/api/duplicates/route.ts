@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { discoverProjects } from '@/lib/project-discovery';
+import { discoverProjects } from '@agent-helpers/core/project-discovery';
 import {
   listLocalSkills,
   listLocalCommands,
   listLocalAgents,
   listLocalOutputStyles,
   calculateHash,
-} from '@/lib/customization-manager';
+} from '@agent-helpers/core/customization-manager';
 import type {
   CustomizationWithProject,
   DuplicatesByName,

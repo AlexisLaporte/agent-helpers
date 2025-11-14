@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadConfig, saveConfig, addLibrarySource as addSourceToConfig, removeLibrarySource as removeSourceFromConfig } from '@agent-helpers/core/config';
-import { parseLibraryInput } from '@/lib/library-parser';
-import { syncSource, validateLibrary, getSourceDirectory, getSourceStats, removeSource } from '@/lib/library-sources';
+import { parseLibraryInput } from '@agent-helpers/core/library-parser';
+import { syncSource, validateLibrary, getSourceDirectory, getSourceStats, removeSource } from '@agent-helpers/core/library-sources';
 
 /**
  * GET /api/library-sources

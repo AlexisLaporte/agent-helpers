@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { discoverProjects } from '@/lib/project-discovery';
+import { discoverProjects } from '@agent-helpers/core/project-discovery';
 
 // GET - List all discovered projects
 export async function GET() {

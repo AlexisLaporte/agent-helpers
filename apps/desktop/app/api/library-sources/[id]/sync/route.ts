@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadConfig, updateLibrarySource } from '@agent-helpers/core/config';
-import { syncSource, getSourceStats } from '@/lib/library-sources';
+import { syncSource, getSourceStats } from '@agent-helpers/core/library-sources';
 
 /**
  * POST /api/library-sources/[id]/sync

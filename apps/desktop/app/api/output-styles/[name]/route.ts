@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOutputStyle } from '@/lib/customization-manager';
+import { getOutputStyle } from '@agent-helpers/core/customization-manager';
 import { getLocalOutputStylesPath } from '@agent-helpers/core/config';
 import path from 'path';
 

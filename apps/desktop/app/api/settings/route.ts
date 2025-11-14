@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readSettings, writeSettings } from '@/lib/customization-manager';
+import { readSettings, writeSettings } from '@agent-helpers/core/customization-manager';
 
 // GET - Read settings
 export async function GET(request: NextRequest) {

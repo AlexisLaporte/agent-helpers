@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getAgent } from '@/lib/customization-manager';
+import { getAgent } from '@agent-helpers/core/customization-manager';
 
 export async function GET(
   request: NextRequest,

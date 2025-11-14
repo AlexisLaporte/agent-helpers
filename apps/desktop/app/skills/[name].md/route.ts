@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getSkill } from '@/lib/customization-manager';
+import { getSkill } from '@agent-helpers/core/customization-manager';
 
 export async function GET(
   request: NextRequest,

@@ -20,8 +20,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@agent-helpers/library": "*",
     "@agent-helpers/core": "*",
+    "@agent-helpers/library": "*",
     "@agent-helpers/ui": "*",
     "@types/react-syntax-highlighter": "^15.5.13",
     "next": "15.5.6",
@@ -29,7 +29,6 @@
     "react-dom": "19.1.0",
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^15.6.6",
-    "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
@@ -64,12 +63,16 @@
     ],
     "asar": false,
     "linux": {
-      "target": ["deb"],
+      "target": [
+        "deb"
+      ],
       "category": "Development",
       "icon": "public/icon.png"
     },
     "mac": {
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "category": "public.app-category.developer-tools",
       "icon": "public/icon.png"
     }

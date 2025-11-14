@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +14,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Agent Helpers - Claude Code Customizations",
+    default: "Agent Helpers - Claude Code Skills Library",
     template: "%s | Agent Helpers",
   },
-  description: "Browse, manage, and sync Claude Code customizations including skills, commands, agents, and output styles.",
+  description: "Curated skills and templates for Claude Code. Browse 12 ready-to-use skills for Notion, Slack, Figma, PDF, and more.",
 };
 
 export default function RootLayout({
@@ -31,12 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex h-screen overflow-hidden">
-          <Sidebar />
-          <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-            {children}
-          </main>
-        </div>
+        {children}
       </body>
     </html>
   );

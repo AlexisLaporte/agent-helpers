@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import DuplicateCard from '../../components/DuplicateCard';
+import DuplicateCard from '@agent-helpers/ui/components/DuplicateCard';
 import type { DuplicatesAnalysis } from '@agent-helpers/core/types';
 
 export default function DuplicatesContent() {

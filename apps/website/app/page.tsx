@@ -43,22 +43,24 @@ export default function Home() {
           </h1>
 
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Manage and extend Claude Code with curated skills, templates, and a powerful desktop app
+            Manage and extend Claude Code with curated skills and a powerful desktop app
           </p>
 
           <div className="flex gap-4 justify-center">
             <Link
-              href="/templates"
+              href="/library"
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
             >
               Browse Skills Library
             </Link>
-            <Link
-              href="/browse"
+            <a
+              href="https://github.com/yourusername/agent-helpers/releases"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 font-medium"
             >
-              Try Demo
-            </Link>
+              Download Desktop App
+            </a>
           </div>
         </div>
       </div>
@@ -119,7 +121,7 @@ export default function Home() {
 
         <div className="text-center mt-8">
           <Link
-            href="/templates"
+            href="/library"
             className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
           >
             View all 12 skills →
@@ -143,7 +145,7 @@ export default function Home() {
             Download for Linux/macOS
           </a>
           <Link
-            href="/templates"
+            href="/library"
             className="px-6 py-3 border border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 font-medium"
           >
             Browse Library

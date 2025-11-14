@@ -2,9 +2,10 @@
   "extends": "./tsconfig.base.json",
   "files": [],
   "references": [
-    { "path": "./packages/shared" },
+    { "path": "./packages/core" },
     { "path": "./packages/library" },
-    { "path": "./packages/web" },
-    { "path": "./packages/electron" }
+    { "path": "./packages/ui" },
+    { "path": "./apps/website" },
+    { "path": "./apps/desktop" }
   ]
 }

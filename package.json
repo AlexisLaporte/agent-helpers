@@ -8,19 +8,21 @@
   },
   "private": true,
   "workspaces": [
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w @agent-helpers/web",
-    "dev:web": "npm run dev -w @agent-helpers/web",
-    "dev:electron": "npm run dev -w @agent-helpers/electron",
+    "dev": "npm run dev -w @agent-helpers/website",
+    "dev:website": "npm run dev -w @agent-helpers/website",
+    "dev:desktop": "npm run dev -w @agent-helpers/desktop",
     "build": "turbo run build",
-    "build:web": "npm run build -w @agent-helpers/web",
-    "build:electron": "npm run build -w @agent-helpers/electron",
-    "build:linux": "npm run build:linux -w @agent-helpers/electron",
-    "build:mac": "npm run build:mac -w @agent-helpers/electron",
+    "build:website": "npm run build -w @agent-helpers/website",
+    "build:desktop": "npm run build -w @agent-helpers/desktop",
+    "package:desktop": "npm run build:electron -w @agent-helpers/desktop && npm run package -w @agent-helpers/desktop",
+    "package:linux": "npm run build:electron -w @agent-helpers/desktop && npm run package:linux -w @agent-helpers/desktop",
+    "package:mac": "npm run build:electron -w @agent-helpers/desktop && npm run package:mac -w @agent-helpers/desktop",
     "lint": "turbo run lint",
-    "start": "npm run start -w @agent-helpers/web"
+    "start": "npm run start -w @agent-helpers/website"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

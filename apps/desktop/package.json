@@ -1,0 +1,75 @@
+{
+  "name": "@agent-helpers/desktop",
+  "version": "0.1.2",
+  "description": "Agent Helpers desktop app",
+  "author": {
+    "name": "Agent Helpers",
+    "email": "contact@agent-helpers.local"
+  },
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:electron": "cp .env.electron .env.production.local && next build && rm .env.production.local",
+    "package": "electron-builder",
+    "package:linux": "electron-builder --linux deb",
+    "package:mac": "electron-builder --mac dmg",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@agent-helpers/library": "*",
+    "@agent-helpers/core": "*",
+    "@agent-helpers/ui": "*",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "next": "15.5.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.6",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.agenthelpers.app",
+    "productName": "Agent Helpers",
+    "publish": null,
+    "directories": {
+      "output": "../../dist"
+    },
+    "files": [
+      ".next/standalone/**/*",
+      ".next/static/**/*",
+      "public/**/*",
+      "../../packages/library/**/*",
+      "electron/**/*",
+      "package.json",
+      "!node_modules/@img/sharp-darwin-*/**",
+      "!node_modules/@img/sharp-win32-*/**"
+    ],
+    "asar": false,
+    "linux": {
+      "target": ["deb"],
+      "category": "Development",
+      "icon": "public/icon.png"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "category": "public.app-category.developer-tools",
+      "icon": "public/icon.png"
+    }
+  }
+}

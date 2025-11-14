@@ -12,6 +12,21 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  webpack: (config, { isServer }) => {
+    // Ignore dev logs and other files that change frequently
+    if (!isServer) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/dev/**',
+          '**/.next/**',
+        ],
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -102,8 +102,8 @@ function ClaudeMdEditor() {
           </div>
 
           {/* Info */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+            <p className="text-sm text-gray-800 dark:text-gray-200">
               💡 <strong>CLAUDE.md</strong> contains global instructions for Claude Code.
               These instructions apply to all conversations in this directory.
             </p>
@@ -131,7 +131,7 @@ function ClaudeMdEditor() {
                 disabled={!hasChanges || saving}
                 className={`px-4 py-2 rounded-md font-medium transition-colors ${
                   hasChanges && !saving
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                    ? 'bg-red-600 hover:bg-red-700 text-white'
                     : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >

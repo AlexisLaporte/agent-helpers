@@ -124,7 +124,7 @@ export default function JsonViewer({ content }: JsonViewerProps) {
       <div className="absolute top-4 right-4 z-10">
         <button
           onClick={handleCopy}
-          className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors"
+          className="px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-800 text-white rounded-md font-medium transition-colors"
         >
           {copied ? '✓ Copied!' : '📋 Copy'}
         </button>

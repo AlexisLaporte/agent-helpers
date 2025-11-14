@@ -414,7 +414,7 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
                   <button
                     onClick={handleSave}
                     disabled={!hasChanges || saving}
-                    className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {saving ? 'Saving...' : 'Save'}
                   </button>
@@ -472,7 +472,7 @@ export default function FilePage({ params }: { params: Promise<{ path: string[] 
                   <div className="flex gap-4">
                     <button
                       onClick={toggleEditMode}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-colors"
+                      className="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-md font-medium transition-colors"
                     >
                       ✏️ Edit
                     </button>

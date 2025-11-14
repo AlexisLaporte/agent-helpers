@@ -127,7 +127,7 @@ export default function LibraryCard({
               <button
                 onClick={handleInstall}
                 disabled={installing}
-                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded text-sm font-medium transition-colors"
+                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white rounded text-sm font-medium transition-colors"
               >
                 {installing ? 'Installing...' : '📥 Install'}
               </button>

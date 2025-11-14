@@ -66,13 +66,23 @@ export default function Sidebar() {
     <div className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col h-screen sticky top-0">
       {/* Header */}
       <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-        <Link href="/">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            Agent Helpers
-          </h1>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            Claude Code Manager
-          </p>
+        <Link href="/" className="flex items-center gap-3 group">
+          <svg
+            viewBox="0 0 40 40"
+            className="w-10 h-10 flex-shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="20" cy="20" r="20" fill="#0A0A0A"/>
+            <circle cx="23.5" cy="20" r="14" fill="#DC2626"/>
+          </svg>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
+              Agent Helpers
+            </h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Claude Code
+            </p>
+          </div>
         </Link>
       </div>
 
@@ -86,7 +96,7 @@ export default function Sidebar() {
               flex items-start gap-3 px-3 py-2.5 rounded-lg transition-colors group
               ${
                 isActive(item.href)
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                  ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
               }
             `}
@@ -116,7 +126,7 @@ export default function Sidebar() {
                 flex items-start gap-3 px-3 py-2.5 rounded-lg transition-colors group
                 ${
                   isActive(item.href)
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                    ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                 }
               `}

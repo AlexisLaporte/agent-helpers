@@ -76,12 +76,12 @@ export default function DuplicatesContent() {
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 Viewing:
               </span>
-              <span className="text-sm font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
+              <span className="text-sm font-mono bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">
                 {project.replace(/\//g, ' › ')}
               </span>
               <Link
                 href="/duplicates"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-sm text-red-600 dark:text-red-400 hover:underline"
               >
                 (clear)
               </Link>

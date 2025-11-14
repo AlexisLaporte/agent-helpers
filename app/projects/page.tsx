@@ -108,8 +108,8 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
-                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
-                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-3 text-center">
+                    <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                       {project.customizationCounts.skills}
                     </p>
                     <p className="text-sm text-gray-600 dark:text-gray-300">Skills</p>
@@ -146,7 +146,7 @@ export default function ProjectsPage() {
                       {getTotalCustomizations(project.customizationCounts)} total
                     </span>
                     {project.hasSettings && (
-                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm">
+                      <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm">
                       settings.json
                     </span>
                   )}
@@ -158,7 +158,7 @@ export default function ProjectsPage() {
                   </div>
                   <Link
                     href={`/browse?project=${project.claudePath}`}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
                   >
                     View
                   </Link>

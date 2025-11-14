@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import { NavLink } from "./components/NavLink";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   },
   description: "Browse, manage, and sync Claude Code customizations including skills, commands, agents, and output styles.",
 };
+
+export const dynamic = 'force-dynamic';
 
 export default function RootLayout({
   children,
@@ -90,17 +92,3 @@ export default function RootLayout({
   );
 }
 
-function NavLink({ href, icon, children }: { href: string; icon: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors"
-      style={{
-        color: 'var(--foreground)',
-      }}
-    >
-      <span>{icon}</span>
-      <span>{children}</span>
-    </Link>
-  );
-}

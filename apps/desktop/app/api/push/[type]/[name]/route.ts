@@ -146,37 +146,3 @@ async function copyDirectory(src: string, dest: string): Promise<void> {
     }
   }
 }
-
-/**
- * Helper functions to get paths
- */
-function getLocalPath(type: CustomizationType): string {
-  const homedir = require('os').homedir();
-  const basePath = path.join(homedir, '.claude');
-
-  switch (type) {
-    case 'skill':
-      return path.join(basePath, 'skills');
-    case 'command':
-      return path.join(basePath, 'commands');
-    case 'agent':
-      return path.join(basePath, 'agents');
-    case 'output-style':
-      return path.join(basePath, 'output-styles');
-  }
-}
-
-function getLibraryPath(type: CustomizationType): string {
-  const libraryBase = path.join(process.cwd(), 'library');
-
-  switch (type) {
-    case 'skill':
-      return path.join(libraryBase, 'skills');
-    case 'command':
-      return path.join(libraryBase, 'commands');
-    case 'agent':
-      return path.join(libraryBase, 'agents');
-    case 'output-style':
-      return path.join(libraryBase, 'output-styles');
-  }
-}

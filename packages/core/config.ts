@@ -175,3 +175,39 @@ export async function getEnabledSources(): Promise<LibrarySource[]> {
   const config = await loadConfig();
   return config.librarySources.filter(s => s.enabled);
 }
+
+/**
+ * Generic helper to get local path for any customization type
+ */
+export function getLocalPath(type: 'skill' | 'command' | 'agent' | 'output-style', customBasePath?: string): string {
+  const basePath = getClaudeBasePath(customBasePath);
+
+  switch (type) {
+    case 'skill':
+      return path.join(basePath, 'skills');
+    case 'command':
+      return path.join(basePath, 'commands');
+    case 'agent':
+      return path.join(basePath, 'agents');
+    case 'output-style':
+      return path.join(basePath, 'output-styles');
+  }
+}
+
+/**
+ * Generic helper to get library path for any customization type
+ */
+export function getLibraryPath(type: 'skill' | 'command' | 'agent' | 'output-style'): string {
+  const libraryBase = path.join(process.cwd(), 'library');
+
+  switch (type) {
+    case 'skill':
+      return path.join(libraryBase, 'skills');
+    case 'command':
+      return path.join(libraryBase, 'commands');
+    case 'agent':
+      return path.join(libraryBase, 'agents');
+    case 'output-style':
+      return path.join(libraryBase, 'output-styles');
+  }
+}

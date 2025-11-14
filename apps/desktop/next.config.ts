@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    skipTrailingSlashRedirect: true,
+  },
+  turbopack: {},
   webpack: (config, { isServer, dev }) => {
     // Ignore dev logs and other files that change frequently
     if (!isServer) {

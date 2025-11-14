@@ -119,8 +119,8 @@ export default function Sidebar() {
                 color: active ? 'var(--accent)' : 'var(--foreground)',
               }}
             >
-              <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPaths[item.icon as keyof typeof iconPaths]} />
+              <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={iconPaths[item.icon as keyof typeof iconPaths]} />
               </svg>
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-sm">{item.name}</div>
@@ -151,8 +151,8 @@ export default function Sidebar() {
                   color: active ? 'var(--accent)' : 'var(--foreground)',
                 }}
               >
-                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPaths[item.icon as keyof typeof iconPaths]} />
+                <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={iconPaths[item.icon as keyof typeof iconPaths]} />
                 </svg>
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-sm">{item.name}</div>

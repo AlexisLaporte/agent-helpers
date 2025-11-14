@@ -144,16 +144,16 @@ export default async function TemplatesPage() {
   return (
     <div className="p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <header className="mb-10">
+          <h1 className="text-4xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
             Template Library
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
             {totalTemplates} templates available in bundled library
           </p>
 
-          <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+          <div className="mt-6 p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               These templates are bundled with the app. Click any template to view details and install to ~/.claude/
             </p>
           </div>
@@ -162,31 +162,36 @@ export default async function TemplatesPage() {
         {/* Skills Templates */}
         {templates.skills.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
               Skills ({templates.skills.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {templates.skills.map((skill) => (
                 <div
                   key={skill.name}
-                  className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-purple-500 dark:border-purple-600"
+                  className="relative p-6 surface-elevated rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}
                 >
-                  <div className="absolute top-2 right-2">
-                    <span className="px-2 py-1 text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
                       Template
                     </span>
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
+                  <h4 className="text-xl font-semibold mb-2 pr-20" style={{ color: 'var(--foreground)' }}>
                     {skill.name}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+                  <p className="line-clamp-3 mb-4" style={{ color: 'var(--text-secondary)' }}>
                     {skill.description}
                   </p>
                   <Link
                     href={`/templates/${skill.name}?type=skills`}
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="flex items-center gap-2 text-sm font-medium"
+                    style={{ color: 'var(--accent)' }}
                   >
-                    View details →
+                    View details
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               ))}
@@ -197,31 +202,36 @@ export default async function TemplatesPage() {
         {/* Commands Templates */}
         {templates.commands.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
               Commands ({templates.commands.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {templates.commands.map((command) => (
                 <div
                   key={command.name}
-                  className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-blue-500 dark:border-blue-600"
+                  className="relative p-6 surface-elevated rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}
                 >
-                  <div className="absolute top-2 right-2">
-                    <span className="px-2 py-1 text-xs font-semibold bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
                       Template
                     </span>
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
+                  <h4 className="text-xl font-semibold mb-2 pr-20" style={{ color: 'var(--foreground)' }}>
                     {command.name}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+                  <p className="line-clamp-3 mb-4" style={{ color: 'var(--text-secondary)' }}>
                     {command.description}
                   </p>
                   <Link
                     href={`/templates/${command.name}?type=commands`}
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="flex items-center gap-2 text-sm font-medium"
+                    style={{ color: 'var(--accent)' }}
                   >
-                    View details →
+                    View details
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               ))}
@@ -232,31 +242,36 @@ export default async function TemplatesPage() {
         {/* Agents Templates */}
         {templates.agents.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
               Agents ({templates.agents.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {templates.agents.map((agent) => (
                 <div
                   key={agent.name}
-                  className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-green-500 dark:border-green-600"
+                  className="relative p-6 surface-elevated rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}
                 >
-                  <div className="absolute top-2 right-2">
-                    <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
                       Template
                     </span>
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
+                  <h4 className="text-xl font-semibold mb-2 pr-20" style={{ color: 'var(--foreground)' }}>
                     {agent.name}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+                  <p className="line-clamp-3 mb-4" style={{ color: 'var(--text-secondary)' }}>
                     {agent.description}
                   </p>
                   <Link
                     href={`/templates/${agent.name}?type=agents`}
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="flex items-center gap-2 text-sm font-medium"
+                    style={{ color: 'var(--accent)' }}
                   >
-                    View details →
+                    View details
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               ))}
@@ -267,31 +282,36 @@ export default async function TemplatesPage() {
         {/* Output Styles Templates */}
         {templates.outputStyles.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
               Output Styles ({templates.outputStyles.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {templates.outputStyles.map((style) => (
                 <div
                   key={style.name}
-                  className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-yellow-500 dark:border-yellow-600"
+                  className="relative p-6 surface-elevated rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }}
                 >
-                  <div className="absolute top-2 right-2">
-                    <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
                       Template
                     </span>
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
+                  <h4 className="text-xl font-semibold mb-2 pr-20" style={{ color: 'var(--foreground)' }}>
                     {style.name}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+                  <p className="line-clamp-3 mb-4" style={{ color: 'var(--text-secondary)' }}>
                     {style.description}
                   </p>
                   <Link
                     href={`/templates/${style.name}?type=output-styles`}
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="flex items-center gap-2 text-sm font-medium"
+                    style={{ color: 'var(--accent)' }}
                   >
-                    View details →
+                    View details
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               ))}
@@ -300,8 +320,8 @@ export default async function TemplatesPage() {
         )}
 
         {totalTemplates === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400">
+          <div className="text-center py-12 surface-elevated rounded-xl" style={{ border: '1px solid var(--border)' }}>
+            <p style={{ color: 'var(--text-secondary)' }}>
               No templates found in library/
             </p>
           </div>

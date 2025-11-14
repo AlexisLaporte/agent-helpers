@@ -75,7 +75,7 @@ export default function Home() {
               Browse Skills Library
             </Link>
             <a
-              href="https://github.com/yourusername/agent-helpers/releases"
+              href="https://github.com/AlexisLaporte/agent-helpers/releases"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 rounded-xl font-medium transition-all duration-200 hover:scale-105 surface-elevated"
@@ -191,7 +191,7 @@ export default function Home() {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a
-              href="https://github.com/yourusername/agent-helpers/releases"
+              href="https://github.com/AlexisLaporte/agent-helpers/releases"
               className="px-8 py-4 rounded-xl font-medium transition-all duration-200 hover:scale-105"
               style={{
                 background: 'var(--gradient-brand)',

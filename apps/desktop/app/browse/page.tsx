@@ -21,24 +21,25 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
   return (
     <div className="p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <header className="mb-10">
+          <h1 className="text-4xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
             Your Customizations
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
             Browse and manage your local Claude Code customizations
           </p>
           {projectPath && (
-            <div className="mt-3 flex items-center gap-2">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
                 Viewing:
               </span>
-              <span className="text-sm font-mono bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 px-2 py-1 rounded">
+              <span className="text-sm font-mono px-3 py-1.5 rounded-lg" style={{ backgroundColor: 'var(--surface-elevated)', color: 'var(--accent)', border: '1px solid var(--border)' }}>
                 {projectPath.replace(/\//g, ' › ')}
               </span>
               <Link
                 href="/browse"
-                className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+                className="text-sm font-medium hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 (clear)
               </Link>
@@ -48,7 +49,7 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
 
         {/* Local Configuration */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
             Configuration
           </h2>
           <LocalConfigSection projectPath={projectPath} />
@@ -56,7 +57,7 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
 
         {/* Skills */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
             Skills
           </h2>
           <LocalSkillsSection projectPath={projectPath} />
@@ -64,7 +65,7 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
 
         {/* Commands */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
             Commands
           </h2>
           <LocalCommandsSection projectPath={projectPath} />
@@ -72,7 +73,7 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
 
         {/* Agents */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
             Agents
           </h2>
           <LocalAgentsSection projectPath={projectPath} />
@@ -80,7 +81,7 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
 
         {/* Output Styles */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--foreground)' }}>
             Output Styles
           </h2>
           <LocalOutputStylesSection projectPath={projectPath} />

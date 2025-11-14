@@ -94,7 +94,7 @@ export default async function SkillDetailPage({ params }: SkillDetailProps) {
               </p>
             </div>
             <a
-              href="https://github.com/yourusername/agent-helpers/releases"
+              href="https://github.com/AlexisLaporte/agent-helpers/releases"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 rounded-xl font-medium transition-all duration-200 hover:scale-105"

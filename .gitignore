@@ -67,3 +67,4 @@ next-env.d.ts
 *.AppImage
 dev/dev.log
 dev/
+.vercel

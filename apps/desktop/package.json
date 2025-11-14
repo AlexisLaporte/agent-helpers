@@ -47,6 +47,7 @@
   "build": {
     "appId": "com.agenthelpers.app",
     "productName": "Agent Helpers",
+    "artifactName": "${name}_${version}_${arch}.${ext}",
     "publish": null,
     "directories": {
       "output": "dist"

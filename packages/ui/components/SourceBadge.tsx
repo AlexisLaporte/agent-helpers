@@ -10,7 +10,7 @@ export default function SourceBadge({ source }: SourceBadgeProps) {
   const badgeConfig: Record<CustomizationSource, { label: string; className: string }> = {
     base: {
       label: 'Base',
-      className: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+      className: 'bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200',
     },
     org: {
       label: '321',

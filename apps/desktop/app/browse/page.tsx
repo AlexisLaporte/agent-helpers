@@ -33,12 +33,12 @@ export default async function BrowsePage({ searchParams }: BrowseProps) {
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 Viewing:
               </span>
-              <span className="text-sm font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
+              <span className="text-sm font-mono bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 px-2 py-1 rounded">
                 {projectPath.replace(/\//g, ' › ')}
               </span>
               <Link
                 href="/browse"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
               >
                 (clear)
               </Link>

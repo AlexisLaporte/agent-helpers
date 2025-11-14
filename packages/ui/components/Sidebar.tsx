@@ -72,10 +72,10 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-72 surface flex flex-col h-screen sticky top-0" style={{ borderRight: '1px solid var(--border)' }}>
+    <div className="w-64 surface flex flex-col h-screen sticky top-0" style={{ borderRight: '1px solid var(--border)' }}>
       {/* Header */}
       <div className="p-6" style={{ borderBottom: '1px solid var(--border)' }}>
-        <Link href="/" className="flex flex-col items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <svg
             viewBox="0 0 100 100"
             width="48"
@@ -113,23 +113,16 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-start gap-3 px-3 py-2.5 rounded-lg transition-all group"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all group"
               style={{
                 backgroundColor: active ? 'rgba(139, 92, 246, 0.1)' : 'transparent',
                 color: active ? 'var(--accent)' : 'var(--foreground)',
               }}
             >
-              <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={iconPaths[item.icon as keyof typeof iconPaths]} />
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPaths[item.icon as keyof typeof iconPaths]} />
               </svg>
-              <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm">{item.name}</div>
-                {item.description && (
-                  <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                    {item.description}
-                  </div>
-                )}
-              </div>
+              <span className="font-medium text-sm">{item.name}</span>
             </Link>
           );
         })}
@@ -145,23 +138,16 @@ export default function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-start gap-3 px-3 py-2.5 rounded-lg transition-all group"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all group"
                 style={{
                   backgroundColor: active ? 'rgba(139, 92, 246, 0.1)' : 'transparent',
                   color: active ? 'var(--accent)' : 'var(--foreground)',
                 }}
               >
-                <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={iconPaths[item.icon as keyof typeof iconPaths]} />
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPaths[item.icon as keyof typeof iconPaths]} />
                 </svg>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium text-sm">{item.name}</div>
-                  {item.description && (
-                    <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                      {item.description}
-                    </div>
-                  )}
-                </div>
+                <span className="font-medium text-sm">{item.name}</span>
               </Link>
             );
           })}

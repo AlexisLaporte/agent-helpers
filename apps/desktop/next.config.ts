@@ -13,19 +13,28 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     // Ignore dev logs and other files that change frequently
     if (!isServer) {
       config.watchOptions = {
         ...config.watchOptions,
         ignored: [
-          '**/node_modules/**',
+          '**/node_modules/!(@agent-helpers)/**',
           '**/.git/**',
           '**/dev/**',
           '**/.next/**',
         ],
       };
     }
+
+    // Force watching package files in dev mode
+    if (dev) {
+      config.snapshot = {
+        ...config.snapshot,
+        managedPaths: [],
+      };
+    }
+
     return config;
   },
 };

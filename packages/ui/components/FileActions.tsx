@@ -3,7 +3,7 @@
 import { useState, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getTypeConfig } from '@/lib/customization-config';
+import { getTypeConfig } from '@agent-helpers/core/customization-config';
 import Modal from './Modal';
 
 interface FileActionsProps {

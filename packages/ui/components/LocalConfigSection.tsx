@@ -78,21 +78,22 @@ export default async function LocalConfigSection({ projectPath }: LocalConfigSec
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Settings.json */}
           {config.hasSettings && (
-            <div className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-blue-500 dark:border-blue-600">
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+            <div className="relative p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)' }}>
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
+                  settings.json
+                </h3>
+                <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success-text)' }}>
                   Installed
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
-                settings.json
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Project settings and preferences
               </p>
               <Link
                 href={`/file/settings.json${projectParam}`}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                className="text-sm hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 Edit →
               </Link>
@@ -101,21 +102,22 @@ export default async function LocalConfigSection({ projectPath }: LocalConfigSec
 
           {/* Settings.local.json */}
           {config.hasSettingsLocal && (
-            <div className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-cyan-500 dark:border-cyan-600">
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+            <div className="relative p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)' }}>
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
+                  settings.local.json
+                </h3>
+                <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success-text)' }}>
                   Installed
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
-                settings.local.json
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Local settings (machine-specific)
               </p>
               <Link
                 href={`/file/settings.local.json${projectParam}`}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                className="text-sm hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 Edit →
               </Link>
@@ -124,21 +126,22 @@ export default async function LocalConfigSection({ projectPath }: LocalConfigSec
 
           {/* CLAUDE.md */}
           {config.hasClaudeMd && (
-            <div className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-indigo-500 dark:border-indigo-600">
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+            <div className="relative p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)' }}>
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
+                  CLAUDE.md
+                </h3>
+                <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success-text)' }}>
                   Installed
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
-                CLAUDE.md
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Global instructions for Claude Code
               </p>
               <Link
                 href={projectPath ? `/claude-md?project=${encodeURIComponent(projectPath)}` : '/claude-md'}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                className="text-sm hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 Edit →
               </Link>
@@ -147,21 +150,22 @@ export default async function LocalConfigSection({ projectPath }: LocalConfigSec
 
           {/* Statusline.sh */}
           {config.hasStatusline && (
-            <div className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-green-500 dark:border-green-600">
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+            <div className="relative p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)' }}>
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
+                  statusline.sh
+                </h3>
+                <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success-text)' }}>
                   Installed
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
-                statusline.sh
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Custom status line script
               </p>
               <Link
                 href={`/file/statusline.sh${projectParam}`}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                className="text-sm hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 Edit →
               </Link>
@@ -170,21 +174,22 @@ export default async function LocalConfigSection({ projectPath }: LocalConfigSec
 
           {/* Hooks */}
           {config.hooks.map(hook => (
-            <div key={hook} className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-purple-500 dark:border-purple-600">
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+            <div key={hook} className="relative p-6 rounded-xl surface-elevated" style={{ border: '1px solid var(--border)' }}>
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
+                  {hook}
+                </h3>
+                <span className="px-2 py-1 text-xs font-semibold rounded" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success-text)' }}>
                   Installed
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 pr-20">
-                {hook}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Hook script
               </p>
               <Link
                 href={`/file/hooks/${hook}${projectParam}`}
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                className="text-sm hover:underline"
+                style={{ color: 'var(--accent)' }}
               >
                 Edit →
               </Link>

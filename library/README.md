@@ -11,10 +11,33 @@ The `library/` directory serves as:
 
 ## Contents
 
-- **skills/** - Modular capabilities (3-5 curated examples)
-- **commands/** - Custom slash commands (coming soon)
-- **agents/** - Specialized subagents (coming soon)
-- **output-styles/** - Custom formatting (coming soon)
+### Skills (12 total)
+
+**Productivity:**
+- **conversation-finder** - Find and resume previous Claude Code conversations
+- **skill-creator** - Guide for creating custom skills
+- **file-organizer** - Organize files by type, date, or project
+- **article-extractor** - Extract clean text from web articles
+
+**Development:**
+- **playwright** - Browser automation and E2E testing
+- **git-worktrees** - Manage multiple Git working trees
+
+**Documents:**
+- **pdf** - PDF manipulation toolkit (extract, merge, split, create)
+
+**Integration:**
+- **notion** - Notion workspace integration
+- **google-drive** - Google Sheets and Slides integration
+- **figma** - Figma design file access and asset export
+- **slack** - Slack messaging and bot automation
+- **youtube-transcript** - Extract video transcripts
+
+### Coming Soon
+
+- **commands/** - Custom slash commands
+- **agents/** - Specialized subagents
+- **output-styles/** - Custom formatting
 
 ## Guidelines
 

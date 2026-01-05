@@ -200,22 +200,32 @@
       <div class="feature">
         <div class="feature-icon">📂</div>
         <h3>Project Browser</h3>
-        <p>Switch between global and project-specific Claude configurations</p>
+        <p>Switch between global (~/.claude/) and project-specific configurations</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📑</div>
+        <h3>3-Zone File Tree</h3>
+        <p>CLAUDE.md, configuration files (skills, commands), and system files</p>
       </div>
       <div class="feature">
         <div class="feature-icon">👻</div>
         <h3>Ghost Files</h3>
-        <p>See recommended files that don't exist yet, with ready-to-use templates</p>
+        <p>Missing recommended files shown grayed out with ready-to-use templates</p>
       </div>
       <div class="feature">
         <div class="feature-icon">✏️</div>
         <h3>Monaco Editor</h3>
-        <p>Edit with syntax highlighting, multiple tabs, and keyboard shortcuts</p>
+        <p>Syntax highlighting, multiple tabs, and keyboard shortcuts</p>
       </div>
       <div class="feature">
         <div class="feature-icon">🔄</div>
         <h3>Live Reload</h3>
-        <p>Automatic detection when files change externally</p>
+        <p>Real-time updates when files change externally</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔃</div>
+        <h3>Auto-Update</h3>
+        <p>Automatic update notifications when new versions are available</p>
       </div>
     </div>
 
@@ -226,6 +236,10 @@
     <div class="install">
       <h2>Installation</h2>
       <div class="install-options">
+        <div class="install-option" style="grid-column: 1 / -1;">
+          <h3>Quick Install (Linux)</h3>
+          <code>curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/claude-code-manager/master/scripts/install.sh | bash</code>
+        </div>
         <div class="install-option">
           <h3>Debian / Ubuntu</h3>
           <code>sudo dpkg -i claude-code-manager_*.deb</code>

@@ -9,6 +9,7 @@ Desktop app to manage [Claude Code](https://claude.ai/code) configurations.
 - **Ghost files** - Missing recommended files shown grayed out with templates
 - **Monaco editor** - Syntax highlighting, tabs, auto-save detection
 - **File watching** - Real-time updates when files change externally
+- **Auto-update** - Automatic update notifications when new versions are available
 
 ## Installation
 

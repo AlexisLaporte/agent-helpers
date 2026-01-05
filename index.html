@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Manager</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #e4e4e7;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #d4a574, #e9c89b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: #a1a1aa;
+    }
+
+    .cta {
+      margin: 3rem 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d4a574, #c4956a);
+      color: #1a1a2e;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #e4e4e7;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #e9c89b;
+    }
+
+    .feature p {
+      font-size: 0.9rem;
+      color: #a1a1aa;
+    }
+
+    .screenshot {
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .screenshot-placeholder {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 4rem 2rem;
+      color: #71717a;
+    }
+
+    .install {
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
+
+    .install h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #e9c89b;
+    }
+
+    .install-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .install-option {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .install-option h3 {
+      font-size: 0.9rem;
+      color: #a1a1aa;
+      margin-bottom: 0.5rem;
+    }
+
+    code {
+      display: block;
+      background: rgba(0,0,0,0.3);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      color: #d4a574;
+      overflow-x: auto;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #71717a;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #a1a1aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">⚙️</div>
+      <h1>Claude Code Manager</h1>
+      <p class="tagline">Desktop app to manage Claude Code configurations</p>
+    </header>
+
+    <div class="cta">
+      <a href="https://github.com/AlexisLaporte/claude-code-manager/releases" class="btn btn-primary">
+        ⬇️ Download
+      </a>
+      <a href="https://github.com/AlexisLaporte/claude-code-manager" class="btn btn-secondary">
+        GitHub
+      </a>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📂</div>
+        <h3>Project Browser</h3>
+        <p>Switch between global and project-specific Claude configurations</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">👻</div>
+        <h3>Ghost Files</h3>
+        <p>See recommended files that don't exist yet, with ready-to-use templates</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✏️</div>
+        <h3>Monaco Editor</h3>
+        <p>Edit with syntax highlighting, multiple tabs, and keyboard shortcuts</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <h3>Live Reload</h3>
+        <p>Automatic detection when files change externally</p>
+      </div>
+    </div>
+
+    <div class="screenshot">
+      <div class="screenshot-placeholder">
+        📸 Screenshot coming soon
+      </div>
+    </div>
+
+    <div class="install">
+      <h2>Installation</h2>
+      <div class="install-options">
+        <div class="install-option">
+          <h3>Debian / Ubuntu</h3>
+          <code>sudo dpkg -i claude-code-manager_*.deb</code>
+        </div>
+        <div class="install-option">
+          <h3>AppImage</h3>
+          <code>chmod +x *.AppImage && ./*.AppImage</code>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Built with <a href="https://tauri.app">Tauri</a> • <a href="https://github.com/AlexisLaporte/claude-code-manager">Source code</a></p>
+    </footer>
+  </div>
+</body>
+</html>

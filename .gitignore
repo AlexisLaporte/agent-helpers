@@ -1,73 +1,31 @@
 # Dependencies
 node_modules/
 
-# Next.js
-.next/
-out/
-.vercel/
-
-# Personal customizations (not to be committed)
-# Use convention: *.personal.md files are personal customizations
-skills/**/*.personal.md
-commands/**/*.personal.md
-agents/**/*.personal.md
-output-styles/**/*.personal.md
-
-# Personal directories (for individual customizations)
-skills/**/personal/
-commands/**/personal/
-agents/**/personal/
-output-styles/**/personal/
-
-# Personal library (user-specific templates)
-library-personal/
-
-# Local development
-*.log
-.DS_Store
-*.swp
-*.swo
-*~
-
-# Environment variables and secrets
-.env
-.env.local
-.env*.local
-*.pem
-*.key
-*.p12
-vercel-personal.sh
-start.sh
-LOCAL-SETUP.md
+# Build output
+dist/
+target/
+*.deb
+*.AppImage
+*.dmg
 
 # IDE
 .vscode/
 .idea/
-*.sublime-*
 
 # OS
+.DS_Store
 Thumbs.db
 
-# Config (local overrides)
-config.local.json
+# Logs
+*.log
 
-# Temporary files
-*.tmp
-deploy_hook.json
-webhook.json
+# Environment
+.env
+.env.local
+.env*.local
 
-# Build output
-dist/
-apps/*/dist/
+# TypeScript
 tsconfig.tsbuildinfo
-next-env.d.ts
 
-# Electron
-*.dmg
-*.deb
-*.AppImage
-dev/dev.log
-dev/
-.vercel
-
-CLAUDE.md
+# Tauri
+apps/desktop-tauri/src-tauri/target/

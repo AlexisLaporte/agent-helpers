@@ -2,6 +2,7 @@ import { FileTree, EnrichedFileEntry, ProjectView } from './components/FileTree'
 import { Editor } from './components/Editor'
 import { ProjectSelector, ClaudeProject } from './components/ProjectSelector'
 import { getTemplateForPath } from './templates'
+import { checkForUpdates } from './updater'
 
 declare global {
   interface Window {
@@ -99,6 +100,8 @@ class App {
 
   private async init() {
     await this.projectSelector.loadProjects()
+    // Check for updates after a short delay
+    setTimeout(() => checkForUpdates(), 2000)
   }
 
   private async onProjectSelect(project: ClaudeProject) {

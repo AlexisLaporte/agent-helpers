@@ -3,6 +3,14 @@
   "productName": "Claude Code Manager",
   "version": "0.1.0",
   "identifier": "com.agenthelpers.claude-code-manager",
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/AlexisLaporte/claude-code-manager/releases/latest/download/latest.json"
+      ],
+      "pubkey": ""
+    }
+  },
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",

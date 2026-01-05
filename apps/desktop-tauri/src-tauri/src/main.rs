@@ -108,6 +108,8 @@ fn main() {
     }
 
     builder
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init())
         .invoke_handler(tauri::generate_handler![
             list_claude_files,
             list_directory,

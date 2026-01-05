@@ -76,12 +76,34 @@ jobs:
       - name: List artifacts
         run: find artifacts -type f
 
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/desktop-v}" >> $GITHUB_OUTPUT
+
+      - name: Generate latest.json for updater
+        run: |
+          cat > artifacts/latest.json << EOF
+          {
+            "version": "${{ steps.version.outputs.VERSION }}",
+            "notes": "See release notes on GitHub",
+            "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "platforms": {
+              "linux-x86_64": {
+                "url": "https://github.com/AlexisLaporte/claude-code-manager/releases/download/desktop-v${{ steps.version.outputs.VERSION }}/Claude.Code.Manager_${{ steps.version.outputs.VERSION }}_amd64.AppImage",
+                "signature": ""
+              }
+            }
+          }
+          EOF
+          cat artifacts/latest.json
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             artifacts/**/*.deb
             artifacts/**/*.AppImage
+            artifacts/latest.json
           draft: false
           prerelease: false
           generate_release_notes: true

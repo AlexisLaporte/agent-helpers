@@ -12,20 +12,28 @@ Desktop app to manage [Claude Code](https://claude.ai/code) configurations.
 
 ## Installation
 
-### Linux (.deb)
+### Quick install (Linux)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AlexisLaporte/claude-code-manager/master/scripts/install.sh | bash
+```
+
+### Manual install
 
 Download from [Releases](https://github.com/AlexisLaporte/claude-code-manager/releases):
 
 ```bash
+# .deb (Debian/Ubuntu)
 sudo dpkg -i claude-code-manager_*.deb
-```
 
-### Linux (.AppImage)
-
-```bash
+# .AppImage
 chmod +x Claude_Code_Manager_*.AppImage
 ./Claude_Code_Manager_*.AppImage
 ```
+
+### Update
+
+Re-run the install script to get the latest version.
 
 ## Development
 

@@ -13,13 +13,10 @@ if [ -z "$LATEST" ]; then
 fi
 
 echo "📦 Downloading $LATEST..."
-DEB_URL="https://github.com/$REPO/releases/download/$LATEST/claude-code-manager_${LATEST#desktop-v}_amd64.deb"
+VERSION="${LATEST#desktop-v}"
+DEB_URL="https://github.com/$REPO/releases/download/$LATEST/Claude.Code.Manager_${VERSION}_amd64.deb"
 
-curl -fsSL "$DEB_URL" -o "$TEMP_DIR/claude-code-manager.deb" || {
-  # Try alternate naming pattern
-  DEB_URL="https://github.com/$REPO/releases/download/$LATEST/Claude.Code.Manager_${LATEST#desktop-v}_amd64.deb"
-  curl -fsSL "$DEB_URL" -o "$TEMP_DIR/claude-code-manager.deb"
-}
+curl -fsSL "$DEB_URL" -o "$TEMP_DIR/claude-code-manager.deb"
 
 echo "🔧 Installing..."
 sudo dpkg -i "$TEMP_DIR/claude-code-manager.deb"

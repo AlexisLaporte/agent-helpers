@@ -1,8 +1,40 @@
 # Claude Code Manager
 
-Desktop app to manage [Claude Code](https://claude.ai/code) configurations.
+Desktop app + skills library for [Claude Code](https://claude.ai/code).
 
-## Features
+## Skills Library
+
+Ready-to-use skills for Claude Code. Browse them at [claude.tuls.me/skills](https://claude.tuls.me/skills).
+
+| Skill | Description |
+|-------|-------------|
+| [session:search](skills/session-search/) | Search and find previous Claude Code conversations |
+| [session:copy](skills/session-copy/) | Copy sessions between project folders |
+| [up:context](skills/up-context/) | Update project documentation (CLAUDE.md + docs/) |
+| [up:research](skills/up-research/) | Log research work and experiments to progress.yaml |
+| [up:task](skills/up-task/) | Analyze conversation and update todo.json |
+| [have-image](skills/have-image/) | Search and generate images (Unsplash, Pollinations, Google) |
+| [git-commit](skills/git-commit/) | Git commit with domain-based conventions |
+| [devops-setup](skills/devops-setup/) | Setup dev servers, CI/CD, deployment |
+
+### Install a skill
+
+Copy a skill folder to `~/.claude/skills/`:
+
+```bash
+# Example: install session:search
+curl -sL https://claude.tuls.me/skills/session:search/raw > ~/.claude/skills/session-search/SKILL.md
+```
+
+Or paste this in Claude Code:
+
+```
+Download https://claude.tuls.me/skills/session:search/raw and save it as ~/.claude/skills/session-search/SKILL.md
+```
+
+## Desktop App
+
+### Features
 
 - **Project browser** - Switch between global (`~/.claude/`) and project-specific configurations
 - **3-zone file tree** - CLAUDE.md, configuration files (skills, commands, settings), system files
@@ -10,8 +42,6 @@ Desktop app to manage [Claude Code](https://claude.ai/code) configurations.
 - **Monaco editor** - Syntax highlighting, tabs, auto-save detection
 - **File watching** - Real-time updates when files change externally
 - **Auto-update** - Automatic update notifications when new versions are available
-
-## Installation
 
 ### Quick install (Linux)
 
@@ -32,26 +62,15 @@ chmod +x Claude_Code_Manager_*.AppImage
 ./Claude_Code_Manager_*.AppImage
 ```
 
-### Update
-
-Re-run the install script to get the latest version.
-
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Run dev server
 npm run dev
-
-# Build release
 npm run build
 ```
 
 ## Release
-
-Push a tag to trigger GitHub Actions:
 
 ```bash
 git tag desktop-v0.1.0

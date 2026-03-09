@@ -2,6 +2,7 @@ use notify::{Event, RecommendedWatcher, RecursiveMode, Watcher};
 use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
 use std::fs;
+use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tauri::{AppHandle, Emitter};
@@ -596,4 +597,192 @@ pub fn delete_path(path: &str) -> Result<(), String> {
         fs::remove_file(&expanded)
             .map_err(|e| format!("Failed to delete file: {}", e))
     }
+}
+
+// === Sessions ===
+
+#[derive(Debug, Clone, Serialize)]
+pub struct SessionInfo {
+    #[serde(rename = "sessionId")]
+    pub session_id: String,
+    #[serde(rename = "startedAt")]
+    pub started_at: String,
+    #[serde(rename = "lastActivity")]
+    pub last_activity: String,
+    #[serde(rename = "messageCount")]
+    pub message_count: usize,
+    #[serde(rename = "firstMessage")]
+    pub first_message: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct ProjectSessions {
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+    #[serde(rename = "projectSlug")]
+    pub project_slug: String,
+    pub sessions: Vec<SessionInfo>,
+}
+
+fn slug_to_project_name(slug: &str) -> String {
+    // Convert slug like "-data-projects-tuls" to "/data/projects/tuls"
+    let path = slug.replacen('-', "/", 1).replace('-', "/");
+    // Try to extract just the last component as display name
+    path.rsplit('/').next().unwrap_or(slug).to_string()
+}
+
+fn extract_json_field(line: &str, field: &str) -> Option<String> {
+    // Fast extraction without full JSON parse
+    let key = format!("\"{}\":", field);
+    let start = line.find(&key)? + key.len();
+    let rest = &line[start..].trim_start();
+    if rest.starts_with('"') {
+        let inner = &rest[1..];
+        let end = inner.find('"')?;
+        Some(inner[..end].to_string())
+    } else {
+        None
+    }
+}
+
+fn extract_first_user_message(line: &str) -> Option<String> {
+    // Look for "role":"user" and extract text content
+    if !line.contains("\"role\":\"user\"") {
+        return None;
+    }
+    // Try to find content string
+    if let Some(pos) = line.find("\"content\":\"") {
+        let start = pos + 11;
+        let rest = &line[start..];
+        let end = rest.find('"').unwrap_or(rest.len().min(200));
+        let msg = &rest[..end];
+        return Some(msg.chars().take(150).collect());
+    }
+    // Content might be an array with text blocks
+    if let Some(pos) = line.find("\"text\":\"") {
+        let start = pos + 8;
+        let rest = &line[start..];
+        let end = rest.find('"').unwrap_or(rest.len().min(200));
+        let msg = &rest[..end];
+        return Some(msg.chars().take(150).collect());
+    }
+    None
+}
+
+fn parse_session_file(path: &PathBuf) -> Option<SessionInfo> {
+    let file = fs::File::open(path).ok()?;
+    let file_size = file.metadata().ok()?.len();
+    if file_size == 0 {
+        return None;
+    }
+
+    let session_id = path.file_stem()?.to_str()?.to_string();
+
+    let reader = BufReader::new(&file);
+    let mut first_timestamp = String::new();
+    let mut last_timestamp = String::new();
+    let mut first_message = String::new();
+    let mut message_count: usize = 0;
+
+    for line in reader.lines().filter_map(|l| l.ok()) {
+        if line.is_empty() {
+            continue;
+        }
+        message_count += 1;
+
+        if let Some(ts) = extract_json_field(&line, "timestamp") {
+            if first_timestamp.is_empty() {
+                first_timestamp = ts.clone();
+            }
+            last_timestamp = ts;
+        }
+
+        if first_message.is_empty() {
+            if let Some(msg) = extract_first_user_message(&line) {
+                first_message = msg;
+            }
+        }
+    }
+
+    if message_count == 0 {
+        return None;
+    }
+
+    Some(SessionInfo {
+        session_id,
+        started_at: first_timestamp,
+        last_activity: last_timestamp,
+        message_count,
+        first_message,
+    })
+}
+
+pub fn list_all_sessions() -> Vec<ProjectSessions> {
+    let projects_dir = get_claude_dir().join("projects");
+    if !projects_dir.exists() {
+        return vec![];
+    }
+
+    let mut all_projects: Vec<ProjectSessions> = Vec::new();
+
+    if let Ok(entries) = fs::read_dir(&projects_dir) {
+        for entry in entries.filter_map(|e| e.ok()) {
+            let path = entry.path();
+            if !path.is_dir() {
+                continue;
+            }
+
+            let slug = path.file_name()
+                .and_then(|n| n.to_str())
+                .unwrap_or("")
+                .to_string();
+
+            // Skip hidden dirs
+            if slug.starts_with('.') {
+                continue;
+            }
+
+            let mut sessions: Vec<SessionInfo> = Vec::new();
+
+            if let Ok(files) = fs::read_dir(&path) {
+                for file in files.filter_map(|f| f.ok()) {
+                    let file_path = file.path();
+                    let name = file_path.file_name()
+                        .and_then(|n| n.to_str())
+                        .unwrap_or("");
+
+                    // Only .jsonl files, skip agent files
+                    if !name.ends_with(".jsonl") || name.starts_with("agent-") {
+                        continue;
+                    }
+
+                    if let Some(session) = parse_session_file(&file_path) {
+                        sessions.push(session);
+                    }
+                }
+            }
+
+            if sessions.is_empty() {
+                continue;
+            }
+
+            // Sort sessions by last_activity desc
+            sessions.sort_by(|a, b| b.last_activity.cmp(&a.last_activity));
+
+            all_projects.push(ProjectSessions {
+                project_name: slug_to_project_name(&slug),
+                project_slug: slug.clone(),
+                sessions,
+            });
+        }
+    }
+
+    // Sort projects by most recent session
+    all_projects.sort_by(|a, b| {
+        let a_last = a.sessions.first().map(|s| &s.last_activity).cloned().unwrap_or_default();
+        let b_last = b.sessions.first().map(|s| &s.last_activity).cloned().unwrap_or_default();
+        b_last.cmp(&a_last)
+    });
+
+    all_projects
 }

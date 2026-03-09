@@ -3,8 +3,8 @@
 use claude_code_manager_lib::{
     list_files, list_dir, read_file_content, write_file_content,
     find_all_claude_projects, start_watching, stop_watching, delete_path,
-    get_project_view, create_file_with_content,
-    FileEntry, ClaudeProject, ProjectView
+    get_project_view, create_file_with_content, list_all_sessions,
+    FileEntry, ClaudeProject, ProjectView, ProjectSessions
 };
 #[allow(unused_imports)]
 use tauri::{AppHandle, Manager};
@@ -65,6 +65,11 @@ fn create_file(path: String, content: String) -> Result<(), String> {
     create_file_with_content(&path, &content)
 }
 
+#[tauri::command]
+fn get_sessions() -> Vec<ProjectSessions> {
+    list_all_sessions()
+}
+
 #[cfg(feature = "tray")]
 fn setup_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     let _tray = TrayIconBuilder::new()
@@ -120,7 +125,8 @@ fn main() {
             unwatch_directory,
             delete_item,
             get_view,
-            create_file
+            create_file,
+            get_sessions
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

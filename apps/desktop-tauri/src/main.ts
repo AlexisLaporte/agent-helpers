@@ -1,6 +1,7 @@
 import { FileTree, EnrichedFileEntry, ProjectView } from './components/FileTree'
 import { Editor } from './components/Editor'
 import { ProjectSelector, ClaudeProject } from './components/ProjectSelector'
+import { SessionsView } from './components/SessionsView'
 import { getTemplateForPath } from './templates'
 import { checkForUpdates } from './updater'
 
@@ -22,12 +23,18 @@ interface FileChangeEvent {
   kind: 'create' | 'modify' | 'remove'
 }
 
+type SidebarMode = 'files' | 'sessions'
+
 class App {
   private projectSelector: ProjectSelector
   private fileTree: FileTree
+  private sessionsView: SessionsView
   private editor: Editor
   private currentProject: ClaudeProject | null = null
   private unlisten: (() => void) | null = null
+  private sidebarMode: SidebarMode = 'files'
+  private fileTreeEl: HTMLElement
+  private sessionsEl: HTMLElement
 
   constructor() {
     const sidebar = document.getElementById('sidebar')!
@@ -40,9 +47,35 @@ class App {
       this.onProjectSelect.bind(this)
     )
 
-    this.fileTree = new FileTree(
-      document.getElementById('file-tree')!,
-      this.onFileSelect.bind(this)
+    // Sidebar toggle
+    const toggle = document.createElement('div')
+    toggle.id = 'sidebar-toggle'
+    toggle.innerHTML = `
+      <button class="toggle-btn active" data-mode="files">Files</button>
+      <button class="toggle-btn" data-mode="sessions">Sessions</button>
+    `
+    toggle.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest('.toggle-btn') as HTMLElement
+      if (!btn) return
+      const mode = btn.dataset.mode as SidebarMode
+      this.switchSidebarMode(mode)
+    })
+    header.appendChild(toggle)
+
+    // File tree container
+    this.fileTreeEl = document.getElementById('file-tree')!
+
+    // Sessions container
+    this.sessionsEl = document.createElement('div')
+    this.sessionsEl.id = 'sessions-view'
+    this.sessionsEl.classList.add('hidden')
+    sidebar.appendChild(this.sessionsEl)
+
+    this.fileTree = new FileTree(this.fileTreeEl, this.onFileSelect.bind(this))
+
+    this.sessionsView = new SessionsView(
+      this.sessionsEl,
+      this.onSessionClick.bind(this)
     )
 
     this.editor = new Editor(document.getElementById('editor-container')!)
@@ -52,6 +85,49 @@ class App {
     this.fileTree.setDuplicateHandler(this.duplicateItem.bind(this))
     this.fileTree.setGhostClickHandler(this.onGhostClick.bind(this))
     this.init()
+  }
+
+  private switchSidebarMode(mode: SidebarMode) {
+    if (mode === this.sidebarMode) return
+    this.sidebarMode = mode
+
+    const buttons = document.querySelectorAll('#sidebar-toggle .toggle-btn')
+    buttons.forEach(btn => {
+      btn.classList.toggle('active', (btn as HTMLElement).dataset.mode === mode)
+    })
+
+    if (mode === 'files') {
+      this.fileTreeEl.classList.remove('hidden')
+      this.sessionsEl.classList.add('hidden')
+    } else {
+      this.fileTreeEl.classList.add('hidden')
+      this.sessionsEl.classList.remove('hidden')
+      this.sessionsView.load()
+    }
+  }
+
+  private async onSessionClick(projectSlug: string, sessionId: string) {
+    // Read the session JSONL and display in editor
+    const home = await this.getHomePath()
+    const path = `${home}/.claude/projects/${projectSlug}/${sessionId}.jsonl`
+
+    try {
+      const content = await this.invoke<string>('read_file', { path })
+      this.editor.openFile(path, `${sessionId.slice(0, 8)}...`, content, projectSlug)
+    } catch (e) {
+      console.error('Failed to read session:', e)
+    }
+  }
+
+  private async getHomePath(): Promise<string> {
+    // Derive home from claude dir
+    const projects = await this.invoke<ClaudeProject[]>('get_all_projects', { forceRefresh: false })
+    const global = projects.find(p => p.name.includes('Global'))
+    if (global) {
+      // claude_path is like /home/user/.claude
+      return global.claude_path.replace('/.claude', '')
+    }
+    return '/home/' + (process.env.USER || 'user')
   }
 
   private async saveFile(path: string, content: string): Promise<void> {
@@ -64,16 +140,13 @@ class App {
   }
 
   private async duplicateItem(path: string): Promise<void> {
-    // Read content
     const content = await this.invoke<string>('read_file', { path })
 
-    // Generate new path with _copy suffix
     const lastDot = path.lastIndexOf('.')
     const newPath = lastDot > 0
       ? path.slice(0, lastDot) + '_copy' + path.slice(lastDot)
       : path + '_copy'
 
-    // Create the duplicate
     await this.invoke<void>('create_file', { path: newPath, content })
     await this.loadProjectView()
   }
@@ -85,22 +158,18 @@ class App {
     const template = getTemplateForPath(entry.path, isGlobal)
 
     if (entry.isDir) {
-      // Create directory immediately
       await this.invoke<void>('create_file', {
         path: entry.path + '/.gitkeep',
         content: ''
       })
       await this.loadProjectView()
     } else {
-      // Open template in editor as new unsaved file
-      // The file will be created when the user saves
       this.editor.openNewFile(entry.path, entry.name, template, this.currentProject.name)
     }
   }
 
   private async init() {
     await this.projectSelector.loadProjects()
-    // Check for updates after a short delay
     setTimeout(() => checkForUpdates(), 2000)
   }
 

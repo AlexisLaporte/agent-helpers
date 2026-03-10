@@ -533,51 +533,17 @@ body {
   padding: 4px 0;
 }
 
-.session-project {
-  margin-bottom: 2px;
-}
-
-.session-project-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.session-project-header:hover {
-  background: var(--bg-tertiary);
-}
-
-.session-project-header .collapse-icon {
-  font-size: 10px;
-  opacity: 0.6;
-  width: 12px;
-}
-
-.session-project-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.session-count {
+.session-date-header {
+  padding: 10px 12px 4px;
   font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: var(--text-secondary);
-  background: var(--bg-primary);
-  padding: 1px 6px;
-  border-radius: 10px;
-}
-
-.session-list.collapsed {
-  display: none;
 }
 
 .session-item {
-  padding: 6px 12px 6px 30px;
+  padding: 8px 12px;
   cursor: pointer;
   border-left: 2px solid transparent;
 }
@@ -590,19 +556,33 @@ body {
 .session-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 2px;
 }
 
-.session-date {
+.session-time {
   font-size: 12px;
   color: var(--text-primary);
   font-weight: 500;
+  min-width: 40px;
+}
+
+.session-project-label {
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(0, 120, 212, 0.1);
+  padding: 1px 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px;
 }
 
 .session-stats {
   font-size: 11px;
   color: var(--text-secondary);
+  margin-left: auto;
 }
 
 .session-preview {
@@ -611,5 +591,165 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 220px;
+}
+
+/* Session dashboard */
+.session-dashboard {
+  padding: 24px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.dashboard-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px;
+  font-size: 14px;
+}
+
+.dashboard-date-header {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin: 16px 0 8px;
+}
+
+.dashboard-date-header:first-child {
+  margin-top: 0;
+}
+
+.dashboard-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.dashboard-card:hover {
+  border-color: var(--accent);
+}
+
+.dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.dashboard-card-project {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.dashboard-card-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.dashboard-card-preview {
+  font-size: 13px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 6px;
+}
+
+.dashboard-card-footer {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Session back button */
+.session-back-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.session-back-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Session reader */
+.session-reader {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.session-reader-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.session-reader-project {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.session-reader-info {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.session-reader-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.message-user {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.message-assistant {
+  align-self: flex-start;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.message-text {
+  margin-bottom: 2px;
+}
+
+.message-time {
+  display: block;
+  font-size: 10px;
+  opacity: 0.6;
+  text-align: right;
+  margin-top: 4px;
 }

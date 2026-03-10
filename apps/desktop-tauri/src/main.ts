@@ -2,6 +2,7 @@ import { FileTree, EnrichedFileEntry, ProjectView } from './components/FileTree'
 import { Editor } from './components/Editor'
 import { ProjectSelector, ClaudeProject } from './components/ProjectSelector'
 import { SessionsView } from './components/SessionsView'
+import { SessionReader } from './components/SessionReader'
 import { getTemplateForPath } from './templates'
 import { checkForUpdates } from './updater'
 
@@ -29,10 +30,11 @@ class App {
   private projectSelector: ProjectSelector
   private fileTree: FileTree
   private sessionsView: SessionsView
+  private sessionReader: SessionReader
   private editor: Editor
   private currentProject: ClaudeProject | null = null
   private unlisten: (() => void) | null = null
-  private sidebarMode: SidebarMode = 'files'
+  private sidebarMode: SidebarMode = 'sessions'
   private fileTreeEl: HTMLElement
   private sessionsEl: HTMLElement
 
@@ -51,8 +53,8 @@ class App {
     const toggle = document.createElement('div')
     toggle.id = 'sidebar-toggle'
     toggle.innerHTML = `
-      <button class="toggle-btn active" data-mode="files">Files</button>
-      <button class="toggle-btn" data-mode="sessions">Sessions</button>
+      <button class="toggle-btn" data-mode="files">Files</button>
+      <button class="toggle-btn active" data-mode="sessions">Sessions</button>
     `
     toggle.addEventListener('click', (e) => {
       const btn = (e.target as HTMLElement).closest('.toggle-btn') as HTMLElement
@@ -62,13 +64,13 @@ class App {
     })
     header.appendChild(toggle)
 
-    // File tree container
+    // File tree container (hidden by default)
     this.fileTreeEl = document.getElementById('file-tree')!
+    this.fileTreeEl.classList.add('hidden')
 
-    // Sessions container
+    // Sessions container (visible by default)
     this.sessionsEl = document.createElement('div')
     this.sessionsEl.id = 'sessions-view'
-    this.sessionsEl.classList.add('hidden')
     sidebar.appendChild(this.sessionsEl)
 
     this.fileTree = new FileTree(this.fileTreeEl, this.onFileSelect.bind(this))
@@ -78,7 +80,13 @@ class App {
       this.onSessionClick.bind(this)
     )
 
-    this.editor = new Editor(document.getElementById('editor-container')!)
+    const editorContainer = document.getElementById('editor-container')!
+    this.sessionReader = new SessionReader(editorContainer)
+    this.sessionReader.setSessionClickHandler(this.onSessionClick.bind(this))
+    this.sessionsView.setDataLoadedHandler((projects) => {
+      this.sessionReader.showDashboard(projects)
+    })
+    this.editor = new Editor(editorContainer)
     this.editor.setSaveHandler(this.saveFile.bind(this))
     this.editor.setFileCreatedHandler(() => this.loadProjectView())
     this.fileTree.setDeleteHandler(this.deleteItem.bind(this))
@@ -88,7 +96,6 @@ class App {
   }
 
   private switchSidebarMode(mode: SidebarMode) {
-    if (mode === this.sidebarMode) return
     this.sidebarMode = mode
 
     const buttons = document.querySelectorAll('#sidebar-toggle .toggle-btn')
@@ -99,32 +106,30 @@ class App {
     if (mode === 'files') {
       this.fileTreeEl.classList.remove('hidden')
       this.sessionsEl.classList.add('hidden')
+      this.sessionReader.hide()
     } else {
       this.fileTreeEl.classList.add('hidden')
       this.sessionsEl.classList.remove('hidden')
-      this.sessionsView.load()
+      this.sessionsView.load() // triggers showDashboard via callback
     }
   }
 
   private async onSessionClick(projectSlug: string, sessionId: string) {
-    // Read the session JSONL and display in editor
     const home = await this.getHomePath()
     const path = `${home}/.claude/projects/${projectSlug}/${sessionId}.jsonl`
 
     try {
       const content = await this.invoke<string>('read_file', { path })
-      this.editor.openFile(path, `${sessionId.slice(0, 8)}...`, content, projectSlug)
+      this.sessionReader.show(content, projectSlug)
     } catch (e) {
       console.error('Failed to read session:', e)
     }
   }
 
   private async getHomePath(): Promise<string> {
-    // Derive home from claude dir
     const projects = await this.invoke<ClaudeProject[]>('get_all_projects', { forceRefresh: false })
     const global = projects.find(p => p.name.includes('Global'))
     if (global) {
-      // claude_path is like /home/user/.claude
       return global.claude_path.replace('/.claude', '')
     }
     return '/home/' + (process.env.USER || 'user')
@@ -170,7 +175,13 @@ class App {
 
   private async init() {
     await this.projectSelector.loadProjects()
+    // Load sessions + dashboard on startup (default mode is sessions)
+    this.sessionsView.load()
     setTimeout(() => checkForUpdates(), 2000)
+  }
+
+  private forceRefreshSessions() {
+    this.sessionsView.load()
   }
 
   private async onProjectSelect(project: ClaudeProject) {

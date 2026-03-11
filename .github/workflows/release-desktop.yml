@@ -67,8 +67,8 @@ jobs:
           APPIMAGE=$(find "$BUNDLE/appimage" -name "*.AppImage" -type f)
           echo "Found AppImage: $APPIMAGE"
 
-          # Sign it manually (reads TAURI_SIGNING_PRIVATE_KEY env var)
-          npx tauri signer sign "$APPIMAGE"
+          # Sign it manually
+          npx tauri signer sign "$APPIMAGE" --private-key "$TAURI_SIGNING_PRIVATE_KEY"
           echo "Signature file:"
           ls -la "${APPIMAGE}.sig"
 

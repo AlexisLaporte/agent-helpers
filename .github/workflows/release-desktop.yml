@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
+  build-and-release:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -42,18 +42,62 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build and release Tauri app
-        uses: tauri-apps/tauri-action@v0
+      - name: Build Tauri app
+        working-directory: apps/desktop-tauri
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+        run: npm run tauri:build -- -- --features tray
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/desktop-v}" >> $GITHUB_OUTPUT
+
+      - name: Prepare release artifacts
+        id: artifacts
+        run: |
+          BUNDLE=apps/desktop-tauri/src-tauri/target/release/bundle
+          mkdir -p release-artifacts
+
+          # Copy deb and AppImage
+          cp "$BUNDLE"/deb/*.deb release-artifacts/
+          cp "$BUNDLE"/appimage/*.AppImage release-artifacts/
+
+          # Read signature from the AppImage.tar.gz.sig (used by updater)
+          SIG=$(cat "$BUNDLE"/appimage/*.AppImage.tar.gz.sig)
+          echo "SIGNATURE=$SIG" >> $GITHUB_OUTPUT
+
+          # List what we have
+          ls -la release-artifacts/
+          echo "Signature: $SIG"
+
+      - name: Generate latest.json for updater
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          cat > release-artifacts/latest.json << ENDJSON
+          {
+            "version": "$VERSION",
+            "notes": "See release notes on GitHub",
+            "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "platforms": {
+              "linux-x86_64": {
+                "url": "https://github.com/AlexisLaporte/claude-code-manager/releases/download/desktop-v${VERSION}/Claude.Code.Manager_${VERSION}_amd64.AppImage.tar.gz",
+                "signature": "${{ steps.artifacts.outputs.SIGNATURE }}"
+              }
+            }
+          }
+          ENDJSON
+          cat release-artifacts/latest.json
+
+      - name: Copy tar.gz for updater
+        run: |
+          BUNDLE=apps/desktop-tauri/src-tauri/target/release/bundle
+          cp "$BUNDLE"/appimage/*.AppImage.tar.gz release-artifacts/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          projectPath: apps/desktop-tauri
-          args: --features tray
-          tagName: desktop-v__VERSION__
-          releaseName: "Desktop v__VERSION__"
-          releaseBody: "See the assets to download and install this version."
-          releaseDraft: false
+          files: release-artifacts/*
+          draft: false
           prerelease: false
-          updaterJsonKeepUniversal: true
+          generate_release_notes: true

@@ -1,14 +1,14 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Claude Code Manager",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "identifier": "com.agenthelpers.claude-code-manager",
   "plugins": {
     "updater": {
       "endpoints": [
         "https://github.com/AlexisLaporte/claude-code-manager/releases/latest/download/latest.json"
       ],
-      "pubkey": ""
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIyMjc3RkE3MDE3MjdBMEUKUldRT2VuSUJwMzhuSWpJY2hPZkZISE80WW1pZStIMm1ienJEa2JLK2NwWWErblNYZWxMQlZxcTYK"
     }
   },
   "build": {

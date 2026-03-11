@@ -42,6 +42,9 @@ jobs:
 
       - name: Build Tauri app
         working-directory: apps/desktop-tauri
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
         run: npm run tauri:build -- -- --features tray
 
       - name: List built artifacts
@@ -60,6 +63,12 @@ jobs:
         with:
           name: linux-appimage
           path: apps/desktop-tauri/src-tauri/target/release/bundle/appimage/*.AppImage
+
+      - name: Upload .AppImage signature
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage-sig
+          path: apps/desktop-tauri/src-tauri/target/release/bundle/appimage/*.AppImage.sig
 
   release:
     needs: build-linux
@@ -80,6 +89,12 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/desktop-v}" >> $GITHUB_OUTPUT
 
+      - name: Read AppImage signature
+        id: sig
+        run: |
+          SIG=$(cat artifacts/linux-appimage-sig/*.sig)
+          echo "SIGNATURE=$SIG" >> $GITHUB_OUTPUT
+
       - name: Generate latest.json for updater
         run: |
           cat > artifacts/latest.json << EOF
@@ -90,7 +105,7 @@ jobs:
             "platforms": {
               "linux-x86_64": {
                 "url": "https://github.com/AlexisLaporte/claude-code-manager/releases/download/desktop-v${{ steps.version.outputs.VERSION }}/Claude.Code.Manager_${{ steps.version.outputs.VERSION }}_amd64.AppImage",
-                "signature": ""
+                "signature": "${{ steps.sig.outputs.SIGNATURE }}"
               }
             }
           }

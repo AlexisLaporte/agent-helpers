@@ -2,6 +2,12 @@
 
 All notable changes to Claude Code Manager.
 
+## [0.3.1] - 2026-03-11
+
+### Fixed
+- Auto-updater : signature des releases (l'update échouait silencieusement)
+- Auto-updater : l'overlay "mise à jour en cours" ne bloquait plus l'app en cas d'erreur
+
 ## [0.3.0] - 2026-03-10
 
 ### Added

@@ -12,19 +12,23 @@ export async function checkForUpdates(): Promise<void> {
       if (shouldUpdate) {
         showUpdateProgress()
 
-        await update.downloadAndInstall((progress) => {
-          if (progress.event === 'Started' && progress.data.contentLength) {
-            console.log(`Téléchargement: ${progress.data.contentLength} bytes`)
-          } else if (progress.event === 'Progress') {
-            console.log(`Progression: ${progress.data.chunkLength} bytes`)
-          } else if (progress.event === 'Finished') {
-            console.log('Téléchargement terminé')
-          }
-        })
+        try {
+          await update.downloadAndInstall((progress) => {
+            if (progress.event === 'Started' && progress.data.contentLength) {
+              console.log(`Téléchargement: ${progress.data.contentLength} bytes`)
+            } else if (progress.event === 'Progress') {
+              console.log(`Progression: ${progress.data.chunkLength} bytes`)
+            } else if (progress.event === 'Finished') {
+              console.log('Téléchargement terminé')
+            }
+          })
 
-        // Restart the app
-        const { relaunch } = await import('@tauri-apps/plugin-process')
-        await relaunch()
+          const { relaunch } = await import('@tauri-apps/plugin-process')
+          await relaunch()
+        } catch (e) {
+          removeUpdateOverlay()
+          alert(`Échec de la mise à jour: ${e}`)
+        }
       }
     }
   } catch (e) {
@@ -63,4 +67,8 @@ function showUpdateProgress(): void {
     color: #d4d4d4;
   `
   document.body.appendChild(overlay)
+}
+
+function removeUpdateOverlay(): void {
+  document.getElementById('update-overlay')?.remove()
 }

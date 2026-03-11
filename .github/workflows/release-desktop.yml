@@ -59,15 +59,18 @@ jobs:
           BUNDLE=apps/desktop-tauri/src-tauri/target/release/bundle
           mkdir -p release-artifacts
 
-          # Copy deb and AppImage
-          cp "$BUNDLE"/deb/*.deb release-artifacts/
-          cp "$BUNDLE"/appimage/*.AppImage release-artifacts/
+          # Debug: list all generated files
+          find "$BUNDLE" -type f | head -30
 
-          # Read signature from the AppImage.tar.gz.sig (used by updater)
-          SIG=$(cat "$BUNDLE"/appimage/*.AppImage.tar.gz.sig)
+          # Copy deb and AppImage (handle spaces in filenames)
+          find "$BUNDLE/deb" -name "*.deb" -exec cp {} release-artifacts/ \;
+          find "$BUNDLE/appimage" -name "*.AppImage" -not -name "*.sig" -exec cp {} release-artifacts/ \;
+          find "$BUNDLE/appimage" -name "*.AppImage.tar.gz" -not -name "*.sig" -exec cp {} release-artifacts/ \;
+
+          # Read signature from the AppImage.tar.gz.sig
+          SIG=$(find "$BUNDLE/appimage" -name "*.AppImage.tar.gz.sig" -exec cat {} \;)
           echo "SIGNATURE=$SIG" >> $GITHUB_OUTPUT
 
-          # List what we have
           ls -la release-artifacts/
           echo "Signature: $SIG"
 
@@ -89,10 +92,11 @@ jobs:
           ENDJSON
           cat release-artifacts/latest.json
 
-      - name: Copy tar.gz for updater
+      - name: Rename artifacts (remove spaces)
         run: |
-          BUNDLE=apps/desktop-tauri/src-tauri/target/release/bundle
-          cp "$BUNDLE"/appimage/*.AppImage.tar.gz release-artifacts/
+          cd release-artifacts
+          for f in *; do mv "$f" "$(echo "$f" | tr ' ' '.')" 2>/dev/null || true; done
+          ls -la
 
       - name: Create Release
         uses: softprops/action-gh-release@v1

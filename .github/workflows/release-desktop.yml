@@ -68,7 +68,7 @@ jobs:
           echo "Found AppImage: $APPIMAGE"
 
           # Sign it manually
-          npx tauri signer sign "$APPIMAGE" --private-key "$TAURI_SIGNING_PRIVATE_KEY"
+          npx tauri signer sign "$APPIMAGE" --private-key "$TAURI_SIGNING_PRIVATE_KEY" --password ""
           echo "Signature file:"
           ls -la "${APPIMAGE}.sig"
 

@@ -7,8 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
+  release:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -40,85 +42,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Tauri app
-        working-directory: apps/desktop-tauri
+      - name: Build and release Tauri app
+        uses: tauri-apps/tauri-action@v0
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
-        run: npm run tauri:build -- -- --features tray
-
-      - name: List built artifacts
-        run: |
-          ls -la apps/desktop-tauri/src-tauri/target/release/bundle/deb/ || true
-          ls -la apps/desktop-tauri/src-tauri/target/release/bundle/appimage/ || true
-
-      - name: Upload .deb artifact
-        uses: actions/upload-artifact@v4
         with:
-          name: linux-deb
-          path: apps/desktop-tauri/src-tauri/target/release/bundle/deb/*.deb
-
-      - name: Upload .AppImage artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-appimage
-          path: apps/desktop-tauri/src-tauri/target/release/bundle/appimage/*.AppImage
-
-      - name: Upload .AppImage signature
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-appimage-sig
-          path: apps/desktop-tauri/src-tauri/target/release/bundle/appimage/*.AppImage.sig
-
-  release:
-    needs: build-linux
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    permissions:
-      contents: write
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: List artifacts
-        run: find artifacts -type f
-
-      - name: Get version from tag
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/desktop-v}" >> $GITHUB_OUTPUT
-
-      - name: Read AppImage signature
-        id: sig
-        run: |
-          SIG=$(cat artifacts/linux-appimage-sig/*.sig)
-          echo "SIGNATURE=$SIG" >> $GITHUB_OUTPUT
-
-      - name: Generate latest.json for updater
-        run: |
-          cat > artifacts/latest.json << EOF
-          {
-            "version": "${{ steps.version.outputs.VERSION }}",
-            "notes": "See release notes on GitHub",
-            "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "platforms": {
-              "linux-x86_64": {
-                "url": "https://github.com/AlexisLaporte/claude-code-manager/releases/download/desktop-v${{ steps.version.outputs.VERSION }}/Claude.Code.Manager_${{ steps.version.outputs.VERSION }}_amd64.AppImage",
-                "signature": "${{ steps.sig.outputs.SIGNATURE }}"
-              }
-            }
-          }
-          EOF
-          cat artifacts/latest.json
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            artifacts/**/*.deb
-            artifacts/**/*.AppImage
-            artifacts/latest.json
-          draft: false
+          projectPath: apps/desktop-tauri
+          args: --features tray
+          tagName: desktop-v__VERSION__
+          releaseName: "Desktop v__VERSION__"
+          releaseBody: "See the assets to download and install this version."
+          releaseDraft: false
           prerelease: false
-          generate_release_notes: true
+          updaterJsonKeepUniversal: true

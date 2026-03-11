@@ -8,7 +8,7 @@
       "endpoints": [
         "https://github.com/AlexisLaporte/claude-code-manager/releases/latest/download/latest.json"
       ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIyMjc3RkE3MDE3MjdBMEUKUldRT2VuSUJwMzhuSWpJY2hPZkZISE80WW1pZStIMm1ienJEa2JLK2NwWWErblNYZWxMQlZxcTYK"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDA2RkZCM0ZCMEVEQzYwQkUKUldTK1lOd08rN1AvQnNTUmQwaDBDdnBhR0xMQUNJcVlrdHdkZW1uTUJYZUZrYldvMTBYR0R5SnkK"
     }
   },
   "build": {
